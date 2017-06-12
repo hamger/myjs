@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true })) //此项必须在 bodyParser.
 app.post('/user/register', function(req, res) {
     // 得到请求的数据
     var user = req.body
-    console.log('user：' + user)
     userDbUtil.getUserByRegister(user).then(function(response) {
         if (response[0]) {
             var respResult = {
@@ -27,10 +26,10 @@ app.post('/user/register', function(req, res) {
             outPut(res, JSON.stringify(respResult))
             console.log(respResult.message)
         } else {
-            userDbUtil.saveUser(user).then(function() {
+            userDbUtil.saveUser(user).then(function(response) {
                 var respResult = {
                     "status": 1,
-                    "username": user.account,
+                    "username": response[0].nickname,
                     "message": '恭喜你,注册成功!'
                 }
                 console.log(respResult.message)
