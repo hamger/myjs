@@ -9,7 +9,7 @@
         <router-link @click="show = 'topic'" to="/topic/topic_article"><i class="fa fa-th"></i><span>&nbsp;&nbsp;专题</span></router-link>
       </li>
       <li :class="{active: show === 'download'}">
-        <a @click="show = 'download'"><i class="fa fa-mobile"></i><span>&nbsp;&nbsp;下载手机应用</span></a>
+        <router-link @click="show = 'download'" to="/download"><i class="fa fa-mobile"></i><span>&nbsp;&nbsp;APP下载</span></router-link>
       </li>
     </ul>
     <ul class="nav-user">

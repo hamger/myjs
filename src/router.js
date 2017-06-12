@@ -6,6 +6,7 @@ import Topic from '@/components/Topic'
 import Topic_article from '@/components/Topic_article'
 import Bonus from '@/components/Bonus'
 import Login from '@/components/Login'
+import Download from '@/components/Download'
 
 Vue.use(Router)
 
@@ -41,5 +42,9 @@ export default new Router({
         path:'/login',
         name:'login',
         component:Login
+    }, {
+        path:'/download',
+        name:'download',
+        component:Download
     }]
 })

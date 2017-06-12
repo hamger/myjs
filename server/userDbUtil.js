@@ -1,7 +1,3 @@
-/**
- * Created by zhouxiong on 16/12/19.
- */
-
 var connection = require('./dbConnection')
 var userDbUtil = {}
 
