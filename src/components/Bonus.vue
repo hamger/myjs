@@ -37,10 +37,10 @@
   </div>
 </template>
 <script>
-  import { mapGetters,mapActions } from 'vuex'
+  import { mapState,mapGetters,mapActions } from 'vuex'
   export default {
-    computed:mapGetters({
-        texts:'getBonusTexts'
+    computed:mapState({
+        texts:state => state.texts // 可以简写为 texts:'texts'
       })
   }
 </script>

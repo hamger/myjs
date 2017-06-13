@@ -55,7 +55,7 @@
 </div>
 </template>
 <script>
-import { mapState,mapGetters,mapActions } from 'vuex'
+import { mapState,mapGetters,mapMutations,mapActions } from 'vuex'
 export default{
   data () {
     return {
@@ -67,9 +67,9 @@ export default{
     })
   },
   methods:{
-    ...mapActions([
-        'displayArticle'
-      ])
+    ...mapMutations({
+        displayArticle:'DISPLAY_ARTICLE'
+      })
   }
 }
 </script>
