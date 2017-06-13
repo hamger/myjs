@@ -52,7 +52,7 @@ const state = {
             content_6: '因为它喜欢在遗忘的沙洲上停搁，',
             content_7: '或是在冥想的旋涡中打转。',
             author: '',
-            bg: 'url(../static/images/bonus_1.jpg)'
+            bg: 'url(../static/bonus_1.jpg)'
         },
         {
             title: '二月黎明',
@@ -64,7 +64,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_2.jpg)'
+            bg: 'url(../static/bonus_2.jpg)'
         },
         {
             title: '三月花开，馨香淡淡',
@@ -76,7 +76,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_3.jpg)'
+            bg: 'url(../static/bonus_3.jpg)'
         },
         {
             title: '你是人间的四月天',
@@ -88,7 +88,7 @@ const state = {
             content_6: '星子在无意中闪',
             content_7: '细雨点洒在花前',
             author: '',
-            bg: 'url(../../static/images/bonus_4.jpg)'
+            bg: 'url(../static/bonus_4.jpg)'
         },
         {
             title: '穿过五月的思念',
@@ -100,7 +100,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_5.jpg)'
+            bg: 'url(../static/bonus_5.jpg)'
         },
         {
             title: '青葱六月',
@@ -112,7 +112,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_6.jpg)'
+            bg: 'url(../static/bonus_6.jpg)'
         },
         {
             title: '无怨的青春',
@@ -124,7 +124,7 @@ const state = {
             content_6: '如果你没有回头',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_7.jpg)'
+            bg: 'url(../static/bonus_7.jpg)'
         },
         {
             title: '过程',
@@ -136,7 +136,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_8.jpg)'
+            bg: 'url(../static/bonus_8.jpg)'
         },
         {
             title: '温情九月',
@@ -148,7 +148,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_9.jpg)'
+            bg: 'url(../static/bonus_9.jpg)'
         },
         {
             title: '金秋十月',
@@ -160,7 +160,7 @@ const state = {
             content_6: '任流年似水时光静好',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_10.jpg)'
+            bg: 'url(../static/bonus_10.jpg)'
         },
         {
             title: '平淡记忆',
@@ -172,7 +172,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_11.jpg)'
+            bg: 'url(../static/bonus_11.jpg)'
         },
         {
             title: '孤独的夜行者',
@@ -184,7 +184,7 @@ const state = {
             content_6: '',
             content_7: '',
             author: '',
-            bg: 'url(../static/images/bonus_12.jpg)'
+            bg: 'url(../static/bonus_12.jpg)'
         }
     ],
 	topics:{

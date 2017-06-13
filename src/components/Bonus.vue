@@ -56,7 +56,7 @@
 
   @media screen and (max-width: 1300px) {
     .bonus-container {
-      width: 1110px;
+      width: 100%;
       transform: translateX(-130px);
     }
   }

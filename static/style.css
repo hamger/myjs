@@ -118,7 +118,7 @@
   .article-page{
     width: 56%;
     height: 100%;
-    right: 200px;
+    right: 124px;
     position: absolute;
     background-color: #f3f3f3;
     top: 0;
@@ -205,8 +205,8 @@
     margin-top: -74px;
   }
   .rightbar nav{
-    padding: 15px 2px 5px 10px;
-    margin-right: 15px;
+    text-align:center;
+    padding: 10px 5px;
     float: right;
     font-size: 14px;
   }
