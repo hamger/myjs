@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Article from '@/components/Article'
+import ArticleList from '@/components/ArticleList'
 import Topic from '@/components/Topic'
 import Topic_article from '@/components/Topic_article'
 import Bonus from '@/components/Bonus'
@@ -15,15 +15,15 @@ export default new Router({
     history: true,
     routes: [{
         path: "*",
-        redirect: '/home/article'
+        redirect: '/home/articleList'
     }, {
         path: '/home',
         name: 'home',
         component: Home,
         children:[{
-            path:'article',
-            name:'article',
-            component: Article
+            path:'articleList',
+            name:'articleList',
+            component: ArticleList
         }]
     }, {
         path: '/topic',
