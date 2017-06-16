@@ -26,9 +26,7 @@
 </script>
 <style>
 	.list{
-    	margin-left: 30px;
-    	margin-top: 17px;
-   	 	margin-bottom: 17px;
+    	margin:17px 15px;
    	 	padding-bottom: 17px;
    		width: calc(100% - 30px);
     	border-bottom:1px dashed #efefef;

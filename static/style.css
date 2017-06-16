@@ -116,9 +116,9 @@
     background-color: #6bd95b;
   }
   .article-page{
-    width: 56%;
+    width: 68%;
     height: 100%;
-    right: 124px;
+    right: 0px;
     position: absolute;
     background-color: #f3f3f3;
     top: 0;

@@ -17,18 +17,18 @@
         <a href="#"><i class="fa fa-font"></i><span>&nbsp;&nbsp;显示模式</span></a>
       </li>
       <li>
-        <router-link to="/login"><i class="fa fa-sign-in"></i><span>&nbsp;&nbsp;登录</span></router-link>
+        <router-link to="/login"><i class="fa fa-sign-in"></i><span>&nbsp;&nbsp;{{ $store.state.userName }}</span></router-link>
       </li>
     </ul>
   </div>
   <div class="home">
     <router-view transition = 'display' transition-mode = 'out-in'></router-view>
   </div>
-  <div class="rightbar">
+<!--   <div class="rightbar">
     <nav>
       <router-link to="/login">{{ $store.state.userName }}</router-link>
     </nav>
-  </div>
+  </div> -->
 </div>
 </template>
 <script>
