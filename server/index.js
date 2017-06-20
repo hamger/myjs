@@ -5,6 +5,7 @@
 
 var express = require('express')
 var userDbUtil = require('./userDbUtil')
+var articleDbUtil = require('./articleDbUtil')
 var outPut = require('./outPut')
 var connection = require('./dbConnection')
 var bodyParser = require("body-parser");
@@ -79,6 +80,23 @@ app.get('/user/login', function(req, res) {
             username: '未登录',
             message: '用户名或密码错误!'
         }
+        outPut(res, JSON.stringify(respResult))
+    })
+})
+
+// 获取文章列表 
+app.get('/article/list',function (req,res) {
+    var type = req.query.type
+    var respResult = {}
+    articleDbUtil.getArticleList(type)
+    .then(function(response) {
+        console.log(response)
+        if (response[0]) {
+            respResult = response
+        }
+        outPut(res, JSON.stringify(respResult))
+    })
+    .catch(function() {
         outPut(res, JSON.stringify(respResult))
     })
 })

@@ -4,12 +4,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router.js'
 import store from './vuex/store.js'
-// import VueResource from 'vue-resource'
-// Vue.use(VueResource)
+import FastClick from 'fastclick'
 import axios from 'axios'
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
+// Vue.config.devtools = true
+FastClick.attach(document.body)
 
 /* eslint-disable no-new */
 new Vue({

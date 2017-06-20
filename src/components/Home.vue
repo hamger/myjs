@@ -25,28 +25,22 @@
     <div class="article-list">
       <ul class="btn-group">
         <li :class="{active: show === 'hot'}" @click="displayArticle('hot')">
-          <router-link  to="/home/article">热门</router-link>  
+          <router-link  to="/home/articleList">热门</router-link>  
         </li>
         <li :class="{active: show === 'new'}" @click="displayArticle('new')">
-          <router-link  to="/home/article">新上榜</router-link>   
+          <router-link  to="/home/articleList">新上榜</router-link>   
         </li>
         <li :class="{active: show === 'daily'}" @click="displayArticle('daily')">
-          <router-link  to="/home/article">日报</router-link> 
+          <router-link  to="/home/articleList">日报</router-link> 
         </li>
-        <li :class="{active: show === 'weekhot'}" @click="show = 'weekhot'">
-          <router-link  to="/home/article">七日热门</router-link> 
+        <li :class="{active: show === 'weekhot'}" @click="displayArticle('weekhot')">
+          <router-link  to="/home/articleList">七日热门</router-link> 
         </li>
-        <li :class="{active: show === 'monthhot'}" @click="show = 'monthhot'">
-          <router-link  to="/home/article">三十日热门</router-link> 
+        <li :class="{active: show === 'monthhot'}" @click="displayArticle('monthhot')">
+          <router-link  to="/home/articleList">三十日热门</router-link> 
         </li>
-        <li :class="{active: show === 'reward'}" @click="show = 'reward'">
-          <router-link  to="/home/article">有奖活动</router-link> 
-        </li>
-        <li :class="{active: show === 'publish'}" @click="show = 'publish'">
-          <router-link  to="/home/article">简书出版</router-link> 
-        </li>
-        <li :class="{active: show === 'choice'}" @click="show = 'choice'">
-          <router-link  to="/home/article">专题精选</router-link> 
+        <li :class="{active: show === 'publish'}" @click="displayArticle('publish')">
+          <router-link  to="/home/articleList">简书出版</router-link> 
         </li>
       </ul>
       <router-view></router-view>
@@ -67,8 +61,8 @@ export default{
     })
   },
   methods:{
-    ...mapMutations({
-        displayArticle:'DISPLAY_ARTICLE'
+    ...mapActions({
+        displayArticle: 'displayArticle'
       })
   }
 }

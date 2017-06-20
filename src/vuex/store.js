@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import modules1 from 'modules1'
-// import modules2 from 'modules2'
 import * as actions from './actions'
 import * as getters from './getters'
 import * as mutations from './mutations'
@@ -9,8 +7,8 @@ import * as mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-	articles:{
-		fir: {
+	articles:[
+		{
 			author:'徐丹妮',
 			title:'我不是学霸，只是比你努力一点而已',
 			time:'大约6小时之前',
@@ -20,7 +18,7 @@ const state = {
 			pay:'2',
 			src:'url(../../static/vue-demo-hot.jpg)'
 		},
-		sec: {
+		{
 			author:'徐妮',
 			title:'我不是学霸，只是比你努力一点而已',
 			time:'大约6小时之前',
@@ -30,7 +28,7 @@ const state = {
 			pay:'2',
 			src:'url(../../static/vue-demo-hot.jpg)'
 		},
-		thi: {
+		{
 			author:'徐双妮',
 			title:'我不是学霸，只是比你努力一点而已',
 			time:'大约6小时之前',
@@ -40,7 +38,7 @@ const state = {
 			pay:'2',
 			src:'url(../../static/vue-demo-hot.jpg)'
 		}
-	},
+	],
     texts: [
         {
             title: '一月四日日记',
