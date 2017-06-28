@@ -59,43 +59,8 @@ const routes = [{
     }
 }]
 
-
 export default new Router({
-        history: true, // 是浏览器历史功能可用
+        history: true, // 使浏览器历史功能可用
         saveScrollPosition: true, // 后退记住滚动条位置
         routes
     })
-    // routes: [{
-    //     path: "*",
-    //     redirect: '/home/articleList'
-    // }, {
-    //     path: '/home',
-    //     name: 'home',
-    //     component: Home,
-    //     children: [{
-    //         path: 'articleList',
-    //         name: 'articleList',
-    //         component: ArticleList
-    //     }]
-    // }, {
-    //     path: '/topic',
-    //     name: 'topic',
-    //     component: Topic,
-    //     children: [{
-    //         path: 'topic_article',
-    //         name: 'topic_article',
-    //         component: Topic_article
-    //     }]
-    // }, {
-    //     path: '/bonus',
-    //     name: 'bonus',
-    //     component: Bonus
-    // }, {
-    //     path: '/login',
-    //     name: 'login',
-    //     component: Login
-    // }, {
-    //     path: '/download',
-    //     name: 'download',
-    //     component: Download
-    // }]

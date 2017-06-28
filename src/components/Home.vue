@@ -6,7 +6,7 @@
       <h1>简书</h1>
       <h3>交流故事，沟通想法</h3>
       <p>一个基于内容分享的社区</p>
-      <a href="#"><i class="fa fa-home"></i>提笔写篇文章</a>
+      <a href="#"><i class="fa fa-pencil"></i>&nbsp;&nbsp;提笔写篇文章</a>
     </div>
   </div>
   <div class="article-page">
@@ -67,25 +67,14 @@ export default{
   }
 }
 </script>
-<style>
-  .btn-group{
-    margin-left: 15px;
-    margin-top:20px;
-  }
-  .btn-group li{
-    margin: 5px 5px;
-  }
-  .btn-group .active{
-    background-color: #de533a;
-  }
-  .btn-group .active a{
-    color: #ffffff;
-  }
-  .btn-group li{
-    margin: 0 5px;
-    display: inline-block;
-    padding: 5px 10px;
-    border: 1px solid #d9d9d9;
-    border-radius: 10px;
-  }
+<style lang='less'>
+    .cover-image {
+      position: absolute;
+      background:url('../../static/vue-demo-bg3.jpg');
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      z-index: -1; 
+    }
 </style>

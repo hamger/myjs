@@ -43,3 +43,14 @@
       ])
   }
 </script>
+<style>
+  .cover-image_2{
+      position: absolute;
+      background:url('../../static/vue-demo-bg2.jpg');
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      z-index: -1; 
+    }
+</style>

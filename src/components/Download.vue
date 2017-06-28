@@ -1,25 +1,23 @@
-<template>
-	<div class="download_container">
-		<div class="download_content">
-			<div class="page-left">
-				<div class="logo"></div>
-				<div class="download_btn">
-					<ul class="download">
-						<li><a href="#"><i class="fa fa-android"></i>Android版</a></li>
-						<li><a href="#"><i class="fa fa-mobile"></i>iPhone版</a></li>
-					</ul>
-					<div class="download_img1"></div>
-				</div>
-				<ul class="share_list">
-					<li>关注我们</li>
-					<li><i class="fa fa-qq"></i></li>
-					<li><i class="fa fa-weibo"></i></li>
-					<li><i class="fa fa-wechat"></i></li>
-				</ul>	
-			</div>
-			<div class="app-img"></div>	
-		</div>
-	</div>
+<template lang="pug">
+.download_container
+	.download_content
+		.page-left
+			.logo
+			.download_btn
+				ul.download
+					li: a(href="#")
+						i.fa.fa-android 
+						| Android版
+					li: a(href="#")
+						i.fa.fa-mobile 
+						| iPhone版
+				.download_img1
+			ul.share_list 
+				li 关注我们
+				li: i.fa.fa-qq
+				li: i.fa.fa-weibo
+				li: i.fa.fa-wechat
+		.app-img
 </template>
 <style>
 	.download_container{
