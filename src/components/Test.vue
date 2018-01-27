@@ -1,83 +1,82 @@
 <template>
   <div class="wrap">
-    {{text}}
+    原文：{{text}}
     <br>
     MD5加密：{{textMD5}}
     <br>
     Hmac加密：{{textHmac}}
     <br>
     AES加密：{{textAES}}
+    <br>
+    AES解密：{{textAESde}}
+    <br>
+    RSA加密：{{textRSA}}
+    <br>
+    RSA解密：{{textRSAde}}
   </div>
 </template>
 <script>
-import crypto from 'crypto'
-const secretKey = 'DwYCjqFx5YCx0h0S' 
+// var fs = require('fs');
+import { crypMD5, crypHmac, encrypt, decrypt, sign, verify } from '../common/js/crypto.js'
+import cryptoJS from 'crypto-js'
+const secretKey = 'DwYCjqFx5YCx0h0S'
 
-function crypMD5 (content) {
-  /*
-  * crypto.createHash()创建一个哈希算法的类，
-  * 参数定义加密方式, 此处的md5可以换成任意hash加密的方法名称，
-  * 如'sha1','sha256','sha512','ripemd160'
-  */
-  let md5 = crypto.createHash('md5'); // 生成了一个md5的hash实例
-  /*
-  * update()方法更新哈希内容
-  * 有记忆功能，多次调用可将字符串相加
-  */
-  md5.update(content);
-  /*
-  * digest()计算数据的摘要值，其参数是编码方式，可以有'hex'、'binary'或者'base64'
-  * hex 十六进制数值；binary  buffer类型；
-  */
-  return md5.digest('hex');
-  // return crypto.createHash('md5').update(content).digest();
-}
+const sec_key = `
+-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQDFWnl8fChyKI/Tgo1ILB+IlGr8ZECKnnO8XRDwttBbf5EmG0qV
+8gs0aGkh649rb75I+tMu2JSNuVj61CncL/7Ct2kAZ6CZZo1vYgtzhlFnxd4V7Ra+
+aIwLZaXT/h3eE+/cFsL4VAJI5wXh4Mq4Vtu7uEjeogAOgXACaIqiFyrk3wIDAQAB
+AoGBAKdrunYlqfY2fNUVAqAAdnvaVOxqa+psw4g/d3iNzjJhBRTLwDl2TZUXImEZ
+QeEFueqVhoROTa/xVg/r3tshiD/QC71EfmPVBjBQJJIvJUbjtZJ/O+L2WxqzSvqe
+wzYaTm6Te3kZeG/cULNMIL+xU7XsUmslbGPAurYmHA1jNKFpAkEA48aUogSv8VFn
+R2QuYmilz20LkCzffK2aq2+9iSz1ZjCvo+iuFt71Y3+etWomzcZCuJ5sn0w7lcSx
+nqyzCFDspQJBAN3O2VdQF3gua0Q5VHmK9AvsoXLmCfRa1RiKuFOtrtC609RfX4DC
+FxDxH09UVu/8Hmdau8t6OFExcBriIYJQwDMCQQCZLjFDDHfuiFo2js8K62mnJ6SB
+H0xlIrND2+/RUuTuBov4ZUC+rM7GTUtEodDazhyM4C4Yq0HfJNp25Zm5XALpAkBG
+atLpO04YI3R+dkzxQUH1PyyKU6m5X9TjM7cNKcikD4wMkjK5p+S2xjYQc1AeZEYq
+vc187dJPRIi4oC3PN1+tAkBuW51/5vBj+zmd73mVcTt28OmSKOX6kU29F0lvEh8I
+oHiLOo285vG5ZtmXiY58tAiPVQXa7eU8hPQHTHWa9qp6
+-----END RSA PRIVATE KEY-----
+`
 
-function crypHmac (content, secretKey) {
-  let hmac = crypto.createHmac('sha256', secretKey);
-  hmac.update(content);
-  return hmac.digest('hex');
-}
-
-function aesEncrypt(data, key) {
-  const cipher = crypto.createCipher('aes192', key);
-  var crypted = cipher.update(data, 'utf8', 'hex');
-  crypted += cipher.final('hex');
-  return crypted;
-}
-function aesDecrypt(encrypted, key) {
-  const decipher = crypto.createDecipher('aes192', key);
-  var decrypted = decipher.update(encrypted, 'hex', 'utf8');
-  decrypted += decipher.final('utf8');
-  return decrypted;
-}
-
-// var data = 'Hello, this is a secret message!';
-// var key = "1234567812345678";
-// var encrypted = aesEncrypt(data, key);
-// var decrypted = aesDecrypt(encrypted, key);
-
-// console.log('Plain text: ' + data);
-// console.log('Encrypted text: ' + encrypted);
-// console.log('Decrypted text: ' + decrypted);
+const pub_key = `
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDFWnl8fChyKI/Tgo1ILB+IlGr8
+ZECKnnO8XRDwttBbf5EmG0qV8gs0aGkh649rb75I+tMu2JSNuVj61CncL/7Ct2kA
+Z6CZZo1vYgtzhlFnxd4V7Ra+aIwLZaXT/h3eE+/cFsL4VAJI5wXh4Mq4Vtu7uEje
+ogAOgXACaIqiFyrk3wIDAQAB
+-----END PUBLIC KEY-----
+`
 
 export default {
   name: 'test',
   data () {
     return {
-      text: 'hello'
+      text: 'Hello, this is a secret message!'
     }
   },
   computed: {
     textMD5 () {
       return crypMD5(this.text);
+      // return cryptoJS.MD5(this.text).toString();
     },
     textHmac () {
       return crypHmac(this.text, secretKey);
+      // return cryptoJS.HmacSHA256(this.text, secretKey).toString();
     },
     textAES () {
-      // return aesEncrypt(this.text, key);
-      return crypHmac(this.text, 'Password!');
+      return encrypt(this.text, secretKey);
+      // return cryptoJS.AES.encrypt(this.text, secretKey).toString();
+    },
+    textAESde () {
+      return decrypt(this.textAES, secretKey);
+      // return cryptoJS.AES.decrypt(this.textAES, secretKey).toString(cryptoJS.enc.Utf8);
+    },
+    textRSA () {
+      return encrypt(this.text, pub_key);
+    },
+    textRSAde () {
+      return decrypt(this.textRSA, pub_key);
     }
   },
   methods: {

@@ -58,79 +58,76 @@
 	</div>
 </template>
 <script>
-  import { mapGetters,mapActions } from 'vuex'
-  import crypto from 'crypto'
-  function cryp (content) {
-	  var md5 = crypto.createHash('md5');
-	  md5.update(content);
-	  return md5.digest('hex');
-	}
+import { mapGetters,mapActions } from 'vuex'
+import { crypMD5, crypHmac, aesEncrypt, aesDecrypt} from '../common/js/crypto.js'
 
-	export default{
-		data () {
-			return {
-				checked: 'true',
-				login: {},
-        register: {}
-			}
-		},
-		computed: mapGetters({
-			loginway: "getLoginWay"
-		}),
-		methods: {
-			// 切换注册或者登陆状态
-      changeLogin (loginway) {
-        this.$store.dispatch('changeLogin', loginway)
-      },
-      // 注册
-      doRegist () {
-      	var account = this.register.account,
-      	nickname = this.register.nickname,
-      	password = cryp(this.register.password)
-      	if( !account || !nickname || !password ) {         			
-      		alert('请填写完整！')
-      	} else {
-      		this.$http.post('/api/user/register/', {
-  					account:account,
-       			nickname:nickname,
-       			password:password
-         	}).then(response => {
-        		this.dealResponse(response.data,false)
-        	}).catch(error => {    
-        		console.log(error)
-        	})
-      	}
-      },
-      // 登陆 
-      doLogin () {
-      	var url  = `/api/user/login?account=${this.login.account}&password=${this.login.password}`
-      	this.$http.get(url).then(response => {
-      		this.dealResponse(response.data,true)
-      	}).catch(error => {    
-      		console.log(error)  
-      	})
-      },
-      // 处理响应
-      dealResponse (response, islogin) {
-        console.log(response)
-        if (response.status) {
-        	if (islogin) {
-						this.$store.state.userName = response.username
-          	this.$router.push('/article/articleList')
-        	}else {
-        		this.$store.dispatch('changeLogin', 'login')
-        	}
-        } else {
-        	if (islogin) alert('登录失败！')
-          else alert('注册失败！')
-        }
-      }
+const secretKey = 'DwYCjqFx5YCx0h0S'
+
+export default{
+	data () {
+		return {
+			checked: 'true',
+			login: {},
+  		register: {}
 		}
+	},
+	computed: mapGetters({
+		loginway: "getLoginWay"
+	}),
+	methods: {
+		// 切换注册或者登陆状态
+  	changeLogin (loginway) {
+    	this.$store.dispatch('changeLogin', loginway)
+  	},
+	  // 注册
+	  doRegist () {
+	  	var account = aesEncrypt(this.register.account, secretKey),
+	  	nickname = this.register.nickname,
+	  	password = crypMD5(this.register.password)
+	  	if( !account || !nickname || !password ) {         			
+	  		alert('请填写完整！')
+	  	} else {
+	  		this.$http.post('/api/user/register/', {
+					account:account,
+	   			nickname:nickname,
+	   			password:password
+	     	}).then(response => {
+	    		this.dealResponse(response.data,false)
+	    	}).catch(error => {    
+	    		console.log(error)
+	    	})
+	  	}
+	  },
+  // 登陆 
+  doLogin () {
+  	var url  = `/api/user/login?account=${this.login.account}&password=${this.login.password}`
+  	this.$http.get(url).then(response => {
+  		this.dealResponse(response.data,true)
+  	}).catch(error => {    
+  		console.log(error)  
+  	})
+  },
+  // 处理响应
+  dealResponse (response, islogin) {
+    console.log(response)
+    if (response.status) {
+    	if (islogin) {
+				this.$store.state.userName = response.username
+      	this.$router.push('/article/articleList')
+    	}else {
+    		this.$store.dispatch('changeLogin', 'login')
+    	}
+    } else {
+    	if (islogin) alert('登录失败！')
+      else alert('注册失败！')
+    }
+  }
 	}
+}
 </script>
 
 <style lang='less' scoped>
-	@import url('../common/common.less');
+	@import url('../common/css/common.less');
 	.login-container{
 		padding: 125px 0 50px;
     	text-align: center;

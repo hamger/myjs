@@ -1,4 +1,3 @@
-var crypto = require('crypto')
 var sqlOperate = require('./sqlOperate')
 var userDbUtil = {}
 

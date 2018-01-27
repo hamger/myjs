@@ -2,8 +2,9 @@
  * 基于express,登录、注册的处理
  * @param app
  */
-var crypto = require('crypto')
 var express = require('express')
+var fs = require('fs')
+var crypto = require('./crypto')
 var userDbUtil = require('./userDbUtil')
 var articleDbUtil = require('./articleDbUtil')
 var outPut = require('./outPut')
@@ -13,18 +14,17 @@ var app = express()
 app.use(bodyParser.json()); // 该句不能省略
 app.use(bodyParser.urlencoded({ extended: true })) //此项必须在 bodyParser.json下面,为参数编码
 
-function cryp (content) {
-  // 定义加密方式: md5不可逆, 此处的md5可以换成任意hash加密的方法名称
-  var md5 = crypto.createHash('md5');
-  md5.update(content);
-  var d = md5.digest('hex');// 得到加密后的值d
-  return d;
-}
+// var cryptoJS = require('crypto-js')
+// console.log(cryptoJS.MD5('hello').toString())
+
+const secretKey = 'DwYCjqFx5YCx0h0S'
 
 // 用户注册
 app.post('/user/register', function(req, res) {
   // 得到请求的数据
   var user = req.body
+  // console.log(user.account)
+  user.account = crypto.aesDecrypt(user.account, secretKey)
   userDbUtil.getRegister(user).then(response => {
     if (response[0]) {
       var respResult = {
@@ -69,7 +69,6 @@ app.get('/user/login', function(req, res) {
   var respResult = {}
   userDbUtil.getLoginer(user)
   .then(response => {
-    // outPut(res, JSON.stringify(response))
     if (response[0]) {
       respResult = {
         status: 1,
@@ -98,7 +97,12 @@ app.get('/user/login', function(req, res) {
 
 // 获取文章列表 
 app.get('/article/list',function (req,res) {
-  console.log(cryp('用户名或密码错误'));
+  // var text = 'hello'
+  // var secret_key = fs.readFileSync('rsa_private_key.pem');
+  // var public_key = fs.readFileSync('rsa_public_key.pem');
+  // var entext = crypto.aesEncrypt(text, public_key, 'RSA-SHA256')
+  // console.log(entext)
+  // console.log(crypto.aesDecrypt(entext, secret_key, 'RSA-SHA256'))
   var type = req.query.type
   var respResult = {}
   articleDbUtil.getArticleList(type)

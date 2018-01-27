@@ -41,7 +41,7 @@ export default {
 }
 </script>
 <style lang='less'>
-@import url('./common/common.less');
+@import url('./common/css/common.less');
 .container {
   overflow: auto;
 }
