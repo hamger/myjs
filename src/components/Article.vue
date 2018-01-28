@@ -10,10 +10,10 @@
         <router-link to='/test'>Test</router-link> 
       </span>
       <span class="search clearfloat">
-        <span class="input">
+        <span class="search">
           <input type="search" placeholder="搜索">
+          <span class="search-icon"><i class="fa fa-search"></i></span>
         </span>
-        <span class="search-icon"><i class="fa fa-search"></i></span>
       </span>
     </nav>
     <div class="article-list">
@@ -44,13 +44,13 @@ export default{
   },
   computed:{
     ...mapGetters({
-        show: 'getShow'
+      show: 'getShow'
     })
   },
   methods:{
     ...mapActions({
-        displayArticle: 'displayArticle'
-      })
+      displayArticle: 'displayArticle'
+    })
   },
   created:function  () {
     this.displayArticle('new')
@@ -58,4 +58,11 @@ export default{
 }
 </script>
 <style lang='less' scoped>
+.search {
+  position: relative;
+  .search-icon {
+    position: absolute;
+    right: 6px;
+  }
+}
 </style>

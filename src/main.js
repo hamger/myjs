@@ -6,6 +6,10 @@ import router from './router.js'
 import store from './vuex/store.js'
 import FastClick from 'fastclick'
 import axios from 'axios'
+import 'font-awesome-webpack'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min'
+
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false

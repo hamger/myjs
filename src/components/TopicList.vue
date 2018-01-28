@@ -33,12 +33,12 @@
 			return {change}
 		},
 		computed: mapGetters({
-				topic: 'getTopics',
-				show: 'getShow_2'
-			}),
+			topic: 'getTopics',
+			show: 'getShow_2'
+		}),
 		methods: mapActions([
-				'sortContent'
-			])
+			'sortContent'
+		])
 	}
 </script>
 <style lang="scss" rel="stylesheet/scss">

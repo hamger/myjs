@@ -17,14 +17,19 @@ app.use(bodyParser.urlencoded({ extended: true })) //此项必须在 bodyParser.
 // var cryptoJS = require('crypto-js')
 // console.log(cryptoJS.MD5('hello').toString())
 
-const secretKey = 'DwYCjqFx5YCx0h0S'
+// 获取公钥
+app.get('/key', (req, res) => {
+  var public_key = fs.readFileSync('rsa_public_key.pem').toString();
+  outPut(res, public_key);
+})
 
 // 用户注册
 app.post('/user/register', function(req, res) {
   // 得到请求的数据
   var user = req.body
-  // console.log(user.account)
-  user.account = crypto.aesDecrypt(user.account, secretKey)
+  var private_key = fs.readFileSync('rsa_private_key.pem').toString()
+  user.account = crypto.privateDecrypt(user.account, private_key).toString()
+  user.nickname = crypto.decrypt(user.nickname, 'DwYCjqFx5YCx0h0S')
   userDbUtil.getRegister(user).then(response => {
     if (response[0]) {
       var respResult = {
@@ -97,12 +102,6 @@ app.get('/user/login', function(req, res) {
 
 // 获取文章列表 
 app.get('/article/list',function (req,res) {
-  // var text = 'hello'
-  // var secret_key = fs.readFileSync('rsa_private_key.pem');
-  // var public_key = fs.readFileSync('rsa_public_key.pem');
-  // var entext = crypto.aesEncrypt(text, public_key, 'RSA-SHA256')
-  // console.log(entext)
-  // console.log(crypto.aesDecrypt(entext, secret_key, 'RSA-SHA256'))
   var type = req.query.type
   var respResult = {}
   articleDbUtil.getArticleList(type)

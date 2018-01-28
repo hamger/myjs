@@ -37,11 +37,11 @@
   </div>
 </template>
 <script>
-  import { mapState,mapGetters,mapActions } from 'vuex'
+  import { mapState } from 'vuex'
   export default {
     computed:mapState({
-        texts:state => state.texts // 可以简写为 texts:'texts'
-      })
+      texts: state => state.texts // 可以简写为 texts:'texts'
+    })
   }
 </script>
 <style lang='less' scoped>

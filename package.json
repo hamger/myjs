@@ -14,9 +14,14 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "bootstrap": "^4.0.0",
     "crypto-js": "^3.1.9-1",
     "fastclick": "^1.0.6",
+    "font-awesome": "^4.7.0",
+    "font-awesome-webpack": "^0.0.5-beta.2",
+    "jquery": "^3.3.1",
     "mysql": "^2.13.0",
+    "popper.js": "^1.12.9",
     "vue": "^2.2.6",
     "vue-router": "^2.3.1",
     "vuex": "^2.3.1"

@@ -25,15 +25,13 @@
 		height: 100%;
 	}
 	.download_content{
-		width: 900px;
+		max-width: 900px;
 		margin: 0 auto;
 		height: 568px;
 		padding: 100px 0 100px 0;
 		text-align: center;
 	}
 	.page-left{
-		padding-top: 50px;
-		margin-right: 75px;
 		text-align: center;
 		display: inline-block;
 		width: 347px;

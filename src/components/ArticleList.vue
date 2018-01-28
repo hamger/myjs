@@ -20,8 +20,8 @@
 import { mapGetters } from 'vuex'
 export default {
 	computed: mapGetters({
-				articles: 'getArticles'
-		})
+		articles: 'getArticles'
+	})
 }
 </script>
 <style lang="less" scoped>

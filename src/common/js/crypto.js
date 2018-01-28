@@ -44,6 +44,15 @@ export const decrypt = (encrypted, key, algorithm) => {
   return decrypted;
 }
 
+export const  publicEncrypt= (data, key) => {
+  // data 需要转换为buffer类型
+  return crypto.publicEncrypt(key, Buffer.from(data));
+}
+export const  privateDecrypt = (encrypted, key) => {
+  // encrypted 必须是buffer类型
+  return crypto.privateDecrypt(key, Buffer.from(encrypted));
+}
+
 // sign 签名
 export const sign = (data, key) => {
   const sign = crypto.createSign('RSA-SHA256');

@@ -29,7 +29,7 @@ Crypto.crypHmac = (content, key, algorithm) => {
   return hmac.digest('hex');
 }
 
-Crypto.aesEncrypt = (data, key, algorithm) => {
+Crypto.encrypt = (data, key, algorithm) => {
   const algo = algorithm || 'aes192';
   const cipher = crypto.createCipher(algo, key);
   var crypted = cipher.update(data, 'utf8', 'hex');
@@ -38,12 +38,21 @@ Crypto.aesEncrypt = (data, key, algorithm) => {
   return crypted;
 }
 
-Crypto.aesDecrypt = (encrypted, key, algorithm) => {
+Crypto.decrypt = (encrypted, key, algorithm) => {
   const algo = algorithm || 'aes192';
   const decipher = crypto.createDecipher(algo, key);
   var decrypted = decipher.update(encrypted, 'hex', 'utf8');
   decrypted += decipher.final('utf8');
   return decrypted;
+}
+
+Crypto.publicEncrypt = (data, key) => {
+  // data 需要转换为buffer类型
+  return crypto.publicEncrypt(key, Buffer.from(data));
+}
+Crypto.privateDecrypt = (encrypted, key) => {
+  // encrypted 必须是buffer类型
+  return crypto.privateDecrypt(key, Buffer.from(encrypted));
 }
 
 module.exports = Crypto;
