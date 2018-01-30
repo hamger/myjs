@@ -22,10 +22,10 @@
           <router-link  to="/home/articleList">新上榜</router-link>   
         </li>
         <li :class="{active: show === 'weekhot'}" @click="displayArticle('weekhot')">
-          <router-link  to="/home/articleList">七日热门</router-link> 
+          <router-link  to="/home/articleList">周热门</router-link> 
         </li>
         <li :class="{active: show === 'monthhot'}" @click="displayArticle('monthhot')">
-          <router-link  to="/home/articleList">三十日热门</router-link> 
+          <router-link  to="/home/articleList">月热门</router-link> 
         </li>
         <li :class="{active: show === 'publish'}" @click="displayArticle('publish')">
           <router-link  to="/home/articleList">简书出版</router-link> 
@@ -63,6 +63,15 @@ export default{
   .search-icon {
     position: absolute;
     right: 6px;
+  }
+}
+.btn-group {
+  margin: 10px 0 0 0; 
+  li {
+    text-align: center;
+    line-height: 14px;
+    font-size: 14px;
+    white-space: nowrap;
   }
 }
 </style>

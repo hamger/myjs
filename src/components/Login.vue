@@ -13,7 +13,7 @@
 				</div>
 				<div class="input-group">
 				  <span id="basic-addon2"><i class="fa fa-unlock-alt"></i></span>
-				  <input type="text" class="form-control" placeholder="密码" aria-describedby="basic-addon2" v-model="login.password">
+				  <input type="password" class="form-control" placeholder="密码" aria-describedby="basic-addon2" v-model="login.password">
 				</div>
 				<button class="btn btn-info" type="button" @click='doLogin()'><span>登录</span></button>
 				<div class="login-control" style="color:#555555;font-size:12px;">
@@ -39,10 +39,10 @@
 				</div>
 				<div class="input-group">
 				  <span id="basic-addon5"><i class="fa fa-unlock-alt"></i></span>
-				  <input type="text" class="form-control" placeholder="密码" aria-describedby="basic-addon5" v-model="register.password">
+				  <input type="password" class="form-control" placeholder="密码" aria-describedby="basic-addon5" v-model="register.password">
 				</div>
 				<button class="btn btn-success"  type="button" @click="doRegist()"><span>注册</span></button>
-				<p class="register_text">点击 “注册” 或下方社交登录按钮，即表示您同意并愿意遵守简书 <a href="#">用户协议</a> 和 <a href="#">隐私政策</a> 。</p>
+				<p class="register_text">点击 “注册” 或下方社交登录按钮，即表示您同意并愿意遵守简书 <a href="javascript:;">用户协议</a> 和 <a href="javascript:;">隐私政策</a> 。</p>
 			</form>
 		</div>
 		<div class="login-way">
@@ -148,7 +148,7 @@ export default{
 <style lang='less' scoped>
 	@import url('../common/css/common.less');
 	.login-container{
-		padding: 125px 0 50px;
+		padding: 32px 0;
   	text-align: center;
 
   	.login-logo{

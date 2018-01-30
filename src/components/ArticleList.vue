@@ -2,17 +2,17 @@
 	<ul>
 		<li class='list' v-for="article in articles">
 			<p class="list-top">
-        <a href="#" class="author"><span>{{ article.author }}</span></a>
+        <a href="javascript:;" class="author"><span>{{ article.author }}</span></a>
         <span class="time"> - {{ article.time}}</span>
       </p>
-			<h2 class="title"><a href="#">{{ article.title }}</a></h2>
+			<h2 class="title"><a href="javascript:;">{{ article.title }}</a></h2>
 			<span class="small-text">阅读 {{article.read}} -</span>
 			<span class="small-text">评论 {{article.comment}} -</span>
 			<span class="small-text">喜欢 {{article.like}} -</span>
 			<span class="small-text">打赏 {{article.pay}}</span>
-			<span class="image"
+			<div class="image"
 				:style="{backgroundImage:article.src, backgroundSize:'100%', backgroundRepeat:'no-repat'}">
-			</span>
+			</div>
 		</li>
 	</ul>
 </template>
@@ -24,24 +24,27 @@ export default {
 	})
 }
 </script>
-<style lang="less" scoped>
-	.list{
-  	margin:17px 15px;
- 	 	padding-bottom: 17px;
- 		width: calc(100% - 30px);
-  	border-bottom:1px dashed #efefef;
+<style lang="scss" scoped>
+	.list {
+    position: relative;
+  	margin: 7px 5px;
+ 	 	padding-bottom: 7px;
 		border-bottom: 1px dashed #d9d9d9;
-	}
-	.list-top{
-		padding-top: 10px;
-	}
-	.list .title a{
-		margin-top: 10px;
-  	margin-bottom: 10px;
-  	margin-left: 0;
-  	display: inherit;
-  	font-size: 18px;
-  	font-weight: bold;
-  	line-height: 1.5;
-	}
+  	.list-top{
+//  		padding-top: 10px;
+  	}
+    .title {
+      line-height: 26px;
+      margin-top: 10px 0;
+      a {
+        font-weight: bold;
+        font-size: 18px;
+      }
+    }
+    .image {
+      position: absolute;
+      right: 0;
+      bottom : 7px;
+    }
+  }
 </style>

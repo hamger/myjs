@@ -1,5 +1,4 @@
 import crypto from 'crypto'
-
 export const crypMD5 = (content, algorithm) => {
   const algo = algorithm || 'md5';
   /*
@@ -23,6 +22,7 @@ export const crypMD5 = (content, algorithm) => {
 
 export const crypHmac = (content, key, algorithm) => {
   const algo = algorithm || 'sha256';
+  // createHmac() 第一个参数是算法名，第二个是秘钥
   let hmac = crypto.createHmac(algo, key);
   hmac.update(content);
   return hmac.digest('hex');
@@ -39,35 +39,37 @@ export const encrypt = (data, key, algorithm) => {
 export const decrypt = (encrypted, key, algorithm) => {
   const algo = algorithm || 'aes192';
   const decipher = crypto.createDecipher(algo, key);
+  // cipher.update(data[, inputEncoding][, outputEncoding])
   var decrypted = decipher.update(encrypted, 'hex', 'utf8');
+  // decipher.final([outputEncoding])
   decrypted += decipher.final('utf8');
   return decrypted;
 }
 
-export const  publicEncrypt= (data, key) => {
+export const  publicEncrypt= (data, pub_key) => {
   // data 需要转换为buffer类型
-  return crypto.publicEncrypt(key, Buffer.from(data));
+  return crypto.publicEncrypt(pub_key, Buffer.from(data));
 }
-export const  privateDecrypt = (encrypted, key) => {
+export const  privateDecrypt = (encrypted, sec_key) => {
   // encrypted 必须是buffer类型
-  return crypto.privateDecrypt(key, Buffer.from(encrypted));
+  return crypto.privateDecrypt(sec_key, Buffer.from(encrypted));
 }
 
 // sign 签名
-export const sign = (data, key) => {
-  const sign = crypto.createSign('RSA-SHA256');
+export const sign = (data, sec_key, algorithm) => {
+  const algo = algorithm || 'RSA-SHA256';
+  const sign = crypto.createSign(algo);
+  // sign.update(data[, inputEncoding])
   sign.update(data);
-  var sig = sign.sign(key, 'hex');
-  return sig;
+  // sign.sign(privateKey[, outputFormat])
+  return sign.sign(sec_key, 'hex');
 }
 
 // verify 验证
-export const verify = (data, sign, key) => {
-  const verify = crypto.createVerify('RSA-SHA256');
+export const verify = (data, signature, pub_key, algorithm) => {
+  const algo = algorithm || 'RSA-SHA256';
+  const verify = crypto.createVerify(algo);
   verify.update(data);
-  if (verify.verify(key, sign)) {
-    return 'yes'
-  } else {
-    return 'no'
-  }
+  // verify.verify(object, signature[, signatureFormat])
+  return verify.verify({key: pub_key}, signature, 'hex')
 }

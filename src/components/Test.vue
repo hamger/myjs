@@ -13,6 +13,8 @@
     RSA加密：{{textRSA.toString('hex')}}
     <br>
     RSA解密：{{textRSAde.toString('utf-8')}}
+    <br>
+    数字签名：{{isSign}}
   </div>
 </template>
 <script>
@@ -81,6 +83,14 @@ export default {
     },
     textRSAde () {
       return privateDecrypt(this.textRSA, sec_key);
+    },
+    isSign () {
+      let signature = sign(this.text, sec_key)
+      console.log(signature);
+      let isTrue = verify(this.text, signature, pub_key)
+      console.log(isTrue)
+      if (isTrue) return 'this is a real sign'
+      else return 'this is a fake sign'
     }
   },
   methods: {

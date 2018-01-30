@@ -8,7 +8,7 @@
 		</div>
 		<ul>
 			<li v-for="content in topic">
-				<a href="" class="topic_article_img"><img :src="content.img"></a>
+				<a href="javascript:;" class="topic_article_img"><img :src="content.img"></a>
 				<div class="topic_content">
 					<h5>{{ content.title }}</h5>
 					<p>{{ content.par }}</p>
