@@ -4,6 +4,7 @@
  */
 var express = require('express')
 var fs = require('fs')
+var path = require('path')
 var crypto = require('./crypto')
 var userDbUtil = require('./userDbUtil')
 var articleDbUtil = require('./articleDbUtil')
@@ -19,7 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true })) //此项必须在 bodyParser.
 
 // 获取公钥
 app.get('/key', (req, res) => {
-  var public_key = fs.readFileSync('rsa_public_key.pem').toString();
+  var public_key = fs.readFileSync('./rsa_public_key.pem').toString();
+  // var public_key = fs.readFileSync(path.join(__dirname, "rsa_public_key.pem")).toString();
   outPut(res, public_key);
 })
 
@@ -27,7 +29,8 @@ app.get('/key', (req, res) => {
 app.post('/user/register', function(req, res) {
   // 得到请求的数据
   var user = req.body
-  var private_key = fs.readFileSync('rsa_private_key.pem').toString()
+  var private_key = fs.readFileSync('./rsa_private_key.pem').toString()
+  // var private_key = fs.readFileSync(path.join(__dirname, "rsa_public_key.pem")).toString()
   user.account = crypto.privateDecrypt(user.account, private_key).toString()
   user.nickname = crypto.decrypt(user.nickname, 'DwYCjqFx5YCx0h0S')
   userDbUtil.getRegister(user).then(response => {
