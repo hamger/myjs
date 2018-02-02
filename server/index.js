@@ -1,41 +1,40 @@
 /**
  * 基于express,登录、注册的处理
- * @param app
  */
-var express = require('express')
-var fs = require('fs')
-var path = require('path')
-var crypto = require('./crypto')
-var userDbUtil = require('./userDbUtil')
-var articleDbUtil = require('./articleDbUtil')
-var outPut = require('./outPut')
-var connection = require('./dbConnection')
-var bodyParser = require("body-parser")
-var app = express()
+const express = require('express')
+const fs = require('fs')
+const path = require('path')
+const crypto = require('./crypto')
+const userDbUtil = require('./userDbUtil')
+const articleDbUtil = require('./articleDbUtil')
+const outPut = require('./outPut')
+const connection = require('./dbConnection')
+const bodyParser = require("body-parser")
+const app = express()
 app.use(bodyParser.json()); // 该句不能省略
 app.use(bodyParser.urlencoded({ extended: true })) //此项必须在 bodyParser.json下面,为参数编码
 
-// var cryptoJS = require('crypto-js')
+// let cryptoJS = require('crypto-js')
 // console.log(cryptoJS.MD5('hello').toString())
 
 // 获取公钥
 app.get('/key', (req, res) => {
-  var public_key = fs.readFileSync('./rsa_public_key.pem').toString();
-  // var public_key = fs.readFileSync(path.join(__dirname, "rsa_public_key.pem")).toString();
+  let public_key = fs.readFileSync('./rsa_public_key.pem').toString();
+  // let public_key = fs.readFileSync(path.join(__dirname, "rsa_public_key.pem")).toString();
   outPut(res, public_key);
 })
 
 // 用户注册
 app.post('/user/register', function(req, res) {
   // 得到请求的数据
-  var user = req.body
-  var private_key = fs.readFileSync('./rsa_private_key.pem').toString()
-  // var private_key = fs.readFileSync(path.join(__dirname, "rsa_public_key.pem")).toString()
+  let user = req.body
+  let private_key = fs.readFileSync('./rsa_private_key.pem').toString()
+  // let private_key = fs.readFileSync(path.join(__dirname, "rsa_public_key.pem")).toString()
   user.account = crypto.privateDecrypt(user.account, private_key).toString()
   user.nickname = crypto.decrypt(user.nickname, 'DwYCjqFx5YCx0h0S')
   userDbUtil.getRegister(user).then(response => {
     if (response[0]) {
-      var respResult = {
+      let respResult = {
         "status": 0,
         "username": '未登录',
         "message": '邮箱/昵称已存在，请重新填写!',
@@ -44,7 +43,7 @@ app.post('/user/register', function(req, res) {
       outPut(res, JSON.stringify(respResult))
     } else {
       userDbUtil.saveUser(user).then(function(response) {
-        var respResult = {
+        let respResult = {
           "status": 1,
           "username": user.nickname,
           "message": '恭喜你,注册成功!',
@@ -60,7 +59,7 @@ app.post('/user/register', function(req, res) {
 
 // 用户是否登录
 // app.get('/user/isLogin', function(req, res) {
-//     var resultText;
+//     let resultText;
 //     if (req.session.isLogin) {
 //         resultText = '已登录'
 //     } else {
@@ -73,8 +72,8 @@ app.post('/user/register', function(req, res) {
 
 // 登陆
 app.get('/user/login', function(req, res) {
-  var user = req.query
-  var respResult = {}
+  let user = req.query
+  let respResult = {}
   userDbUtil.getLoginer(user)
   .then(response => {
     if (response[0]) {
@@ -104,10 +103,22 @@ app.get('/user/login', function(req, res) {
 })
 
 // 获取文章列表 
-app.get('/article/list',function (req,res) {
-  var type = req.query.type
-  var respResult = {}
-  articleDbUtil.getArticleList(type)
+app.get('/articles',function (req,res) {
+  let respResult = {}
+  articleDbUtil.getArticles(req.query)
+  .then(response => {
+    if (response[0]) respResult = response
+    outPut(res, JSON.stringify(respResult))
+  })
+  .catch(() => {
+    outPut(res, JSON.stringify(respResult))
+  })
+})
+
+// 获取专题列表 
+app.get('/topics',function (req,res) {
+  let respResult = {}
+  articleDbUtil.getTopics(req.query)
   .then(response => {
     if (response[0]) respResult = response
     outPut(res, JSON.stringify(respResult))
@@ -119,7 +130,7 @@ app.get('/article/list',function (req,res) {
 
 // 监听端口
 const server = app.listen(8084, function() {
-    // var host = server.address().address
-    var port = server.address().port
+    // let host = server.address().address
+    let port = server.address().port
     console.log("Web服务器启动成功，访问地址为 http://localhost:" + port)
 })

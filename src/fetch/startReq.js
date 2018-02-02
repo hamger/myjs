@@ -1,20 +1,21 @@
 import axios from 'axios'
 
+// 设置基础路由和最大等待时间
 const instance = axios.create({
     baseURL: '/api/',
-    timeout: 10000
+    timeout: 7000
 })
 
-instance.interceptors.response.use((res) => {
-    if (!res) {
-        return Promise.reject(res);
-    }
+// 设置请求拦截
+instance.interceptors.response.use(res => {
+    if (!res) return Promise.reject(res);
     return res;
-}, (error) => {
+}, error => {
     return Promise.reject(error);
 })
 
-export getReq(url, params) {
+// 封装 get 请求
+export const getReq = (url, params) => {
     return instance({
         method: 'get',
         url: url,
@@ -22,7 +23,8 @@ export getReq(url, params) {
     });
 }
 
-export postReq(url, params) {
+// 封装 post 请求
+export const postReq = (url, params) => {
     return instance({
         method: 'post',
         url: url,

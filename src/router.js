@@ -25,6 +25,18 @@ const routes = [{
         component: function(resolve) {
             require(['./components/ArticleList'], resolve)
         }
+    }, {
+        path: 'bonus',
+        name: 'bonus',
+        component: function(resolve) {
+            require(['./components/Bonus'], resolve)
+        }
+    }, {
+        path: 'test',
+        name: 'test',
+        component: function(resolve) {
+            require(['./components/Test'], resolve)
+        }
     }]
 }, {
     path: '/topic',
@@ -40,12 +52,6 @@ const routes = [{
         }
     }]
 }, {
-    path: '/bonus',
-    name: 'bonus',
-    component: function(resolve) {
-        require(['./components/Bonus'], resolve)
-    }
-}, {
     path: '/login',
     name: 'login',
     component: function(resolve) {
@@ -56,12 +62,6 @@ const routes = [{
     name: 'download',
     component: function(resolve) {
         require(['./components/Download'], resolve)
-    }
-}, {
-    path: '/test',
-    name: 'test',
-    component: function(resolve) {
-        require(['./components/Test'], resolve)
     }
 }]
 

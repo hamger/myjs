@@ -59,6 +59,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { parseUrl } from '../common/js/common.js'
 import { crypMD5,
   crypHmac,
   encrypt,
@@ -141,6 +142,8 @@ export default{
 	      else alert('注册失败！')
 	    }
 	  }
+	},
+	created () {
 	}
 }
 </script>

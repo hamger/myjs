@@ -1,77 +1,64 @@
 <template>
 <div>
-  <div class="article-page">
-    <nav>
-      <span class="nav-text fir"><a href="#">发现</a></span>
-      <span class="nav-text">
-        <router-link to='/bonus'>2015精选</router-link> 
-      </span>
-      <span class="nav-text">
-        <router-link to='/test'>Test</router-link> 
-      </span>
-      <span class="search clearfloat">
-        <span class="search">
-          <input type="search" placeholder="搜索">
-          <span class="search-icon"><i class="fa fa-search"></i></span>
-        </span>
-      </span>
-    </nav>
-    <div class="article-list">
-      <ul class="btn-group">
-        <li :class="{active: show === 'new'}" @click="displayArticle('new')">
-          <router-link  to="/home/articleList">新上榜</router-link>   
-        </li>
-        <li :class="{active: show === 'weekhot'}" @click="displayArticle('weekhot')">
-          <router-link  to="/home/articleList">周热门</router-link> 
-        </li>
-        <li :class="{active: show === 'monthhot'}" @click="displayArticle('monthhot')">
-          <router-link  to="/home/articleList">月热门</router-link> 
-        </li>
-        <li :class="{active: show === 'publish'}" @click="displayArticle('publish')">
-          <router-link  to="/home/articleList">简书出版</router-link> 
-        </li>
-      </ul>
-      <router-view></router-view>
-    </div>
-  </div>
+  <nav class="home-nav">
+    <span @click="index = 0" :class="{fir: index === 0}">
+      <router-link to='articleList'>发现</router-link> 
+    </span>
+    <span @click="index = 1" :class="{fir: index === 1}">
+      <router-link to='bonus'>精选</router-link> 
+    </span>
+    <span @click="index = 2" :class="{fir: index === 2}">
+      <router-link to='test'>Test</router-link> 
+    </span>
+  </nav>
+  <router-view></router-view>
 </div>
 </template>
 <script>
-import { mapState,mapGetters,mapMutations,mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
 export default{
   data () {
-    return {}
+    return {
+      index: 0
+    }
   },
-  computed:{
+  computed: {
     ...mapGetters({
       show: 'getShow'
     })
   },
-  methods:{
+  methods: {
     ...mapActions({
       displayArticle: 'displayArticle'
     })
   },
-  created:function  () {
-    this.displayArticle('new')
-  },
+  created: function  () {
+    this.displayArticle({type: 'new'})
+  }
 }
 </script>
 <style lang='less' scoped>
-.search {
-  position: relative;
-  .search-icon {
-    position: absolute;
-    right: 6px;
+@import url('../common/css/common.less');
+.home-nav {
+  height: 44px;
+  border-bottom: 2px solid rgba(85, 85, 85, 0.12);
+  font-size: 12px;
+  span {
+    display: inline-block;
+    line-height: 44px;
+    height: 44px;
+    margin-left: 10px;
+    transition: all 0.3s;
+    &:hover {
+      background-color: #eee;
+    }
+    a {
+      padding: 10px 15px;
+    }
   }
-}
-.btn-group {
-  margin: 10px 0 0 0; 
-  li {
-    text-align: center;
-    line-height: 14px;
-    font-size: 14px;
-    white-space: nowrap;
+  .fir {
+    border-bottom: 1px solid #000;
   }
 }
 </style>

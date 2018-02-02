@@ -1,46 +1,52 @@
-import axios from 'axios'
+import {getReq, postReq} from '../fetch/startReq.js'
 
-// 设置基础路由和最大等待时间
-const instance = axios.create({
-  baseURL: '/api/',
-  timeout: 5000
-})
-
-// 设置请求拦截器
-instance.interceptors.response.use((res) => {
-  if (!res) {
-    return Promise.reject(res);
-  }
-  return res;
-}, (error) => {
-  return Promise.reject(error);
-})
-
-export const displayArticle = ({ commit }, show) => {
-  instance({
-    method: 'get',
-    url: 'article/list?type=' + show
-  }).then(function(response) {
-    var result = response.data
-    commit('DISPLAY_ARTICLE', { result: result, show: show })
+// 获取文章列表数据
+export const displayArticle = ({ commit }, obj) => {
+  if (!obj.page) obj.page = 0;
+  if (!obj.size) obj.size = 5;
+  getReq('articles', {
+    type: obj.type,
+    page: obj.page,
+    size: obj.size
+  }).then(response => {
+    commit('DISPLAY_ARTICLE', {
+      result: response.data,
+      show: obj.type,
+      page: obj.page,
+      size: obj.size
+    })
+  }).catch(function(error) {
+    console.log(error)
+  })
+}
+// 显示专题内容
+export const displayTopic = ({ commit }, obj) => {
+  if (!obj.page) obj.page = 0;
+  if (!obj.size) obj.size = 5;
+  getReq('topics', {
+    page: obj.page,
+    size: obj.size
+  }).then(response => {
+    commit('DISPLAY_TOPIC', {
+      result: response.data,
+      page: obj.page,
+      size: obj.size
+    })
   }).catch(function(error) {
     console.log(error)
   })
 }
 
-// export const displayTopic = (content, show) => {
-//   content.commit('DISPLAY_TOPIC', show)
+// export const sortContent = (content, show) => {
+//   content.commit('SORTCONTENT', show)
 // }
 // 实践中，我们会经常用到 ES2015 的 参数解构 来简化代码，如下
-
-export const displayTopic = ({ commit }, show) => {
-  commit('DISPLAY_TOPIC', show)
-}
-
+// 排序
 export const sortContent = ({ commit }, method) => {
   commit('SORTCONTENT', method)
 }
 
+// 切换登陆注册
 export const changeLogin = ({ commit }, loginway) => {
   commit('CHANGELOGIN', loginway)
 }

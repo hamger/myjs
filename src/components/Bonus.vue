@@ -6,13 +6,12 @@
       <span>每月一篇好文章</span>
     </div>
     <div class="share">
-      <!-- <span><a href="javascript:;"><i class="fa fa-mobile"></i>手机查看效果更佳</a></span> -->
       <span><a href="javascript:;"><i class="fa fa-weibo"></i>分享到微博</a></span>
       <span><a href="javascript:;"><i class="fa fa-wechat"></i>分享到微信</a></span>
       <span><a href="javascript:;">更多分享</a></span>
     </div>
     <ul class="text-list">
-      <li v-for="article in texts" :style="{
+      <li v-for="article in this.$store.state.texts" :style="{
         background: article.bg,
         backgroundSize: '100%',
         backgroundRepeat: 'no-repeat',
@@ -42,9 +41,9 @@
 <script>
   import { mapState } from 'vuex'
   export default {
-    computed:mapState({
-      texts: state => state.texts // 可以简写为 texts:'texts'
-    })
+    // computed: mapState({
+    //   texts: state => state.texts // 可以简写为 texts:'texts'
+    // })
   }
 </script>
 <style lang='less' scoped>
