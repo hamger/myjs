@@ -14,7 +14,7 @@ articleDbUtil.getArticles = function(param) {
 articleDbUtil.getTopics = function(param) {
   return new Promise(function(resolve, reject) {
     const startIdx = param.page * param.size; 
-    const sql = `select * from topic limit ${startIdx},${param.size}` 
+    const sql = `select * from topics limit ${startIdx},${param.size}` 
     sqlOperate(sql, '', resolve, reject)
   })
 }

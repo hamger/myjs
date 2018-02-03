@@ -16,15 +16,21 @@
       }">
         <div class="drop-menu">
           <a href="javascript:;"><i class="fa fa-user"></i> <span>{{ $store.state.userName }}</span></a>
-          <ul class="drop-list">
+          <ul class="drop-list" v-if="Number($store.state.myid) > 0">
+            <li><router-link to="/myhome"><i class="fa fa-user-circle"></i> <span>我的主页</span></router-link></li>
+            <li><router-link to="/write"><i class="fa fa-pencil"></i> <span>写文章</span></router-link></li>
+            <li @click="signOut"><a href="javascript:;"><i class="fa fa-sign-out"></i> <span>退出登录</span></a></li>
+          </ul>
+          <ul class="drop-list" v-else>
             <li @click="changeLogin('login')"><router-link to="/login"><i class="fa fa-sign-in"></i> <span>登录</span></router-link></li>
-            <li @click="changeLogin('register')"><router-link to="/login"><i class="fa fa-sign-in"></i> <span>注册</span></router-link></li>
-            <li @click="night = !night"><a href="javascript:;"><i class="fa fa-exchange"></i> <span>{{night ? '夜间模式' : '日间模式'}}</span></a></li>
+            <li @click="changeLogin('register')"><router-link to="/login"><i class="fa fa-plus-circle"></i> <span>注册</span></router-link></li>
+            <!-- <li @click="night = !night"><a href="javascript:;"><i class="fa fa-exchange"></i> <span>{{night ? '夜间模式' : '日间模式'}}</span></a></li> -->
           </ul>
         </div>
       </div>
     </div>
   </nav>
+  <!-- <div>{{statess}}</div> -->
   <div class="home">
     <router-view transition='display' transition-mode='out-in'></router-view>
   </div>
@@ -37,13 +43,22 @@ export default {
   data () {
     return {
       tabIndex: 0,
-      night: false
+      night: false,
+      // 实例data属性中的 this 不能省略，template中可以省略，template中的所有变量都是组件实例的属性和方法
+      statess: this.$store.state.userName 
     }
   },
   methods: {
     changeLogin (loginway) {
       this.$store.dispatch('changeLogin', loginway)
+    },
+    signOut () {
+      this.$store.state.userName = '游客'
+      this.$store.state.account = ''
+      this.$store.state.myid = 0
     }
+  },
+  created () {
   }
 }
 </script>

@@ -40,7 +40,7 @@
 		])
 	}
 </script>
-<style lang="scss" rel="stylesheet/scss">
+<style lang='less' scoped>
 	.topic_article_container{
 		padding:0 15px;
 		.sequence-nav {

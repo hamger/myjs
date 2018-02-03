@@ -63,9 +63,22 @@ const routes = [{
     component: function(resolve) {
         require(['./components/Download'], resolve)
     }
+}, {
+    path: '/myhome',
+    name: 'myhome',
+    component: function(resolve) {
+        require(['./components/MyHome'], resolve)
+    }
+}, {
+    path: '/write',
+    name: 'write',
+    component: function(resolve) {
+        require(['./components/Write'], resolve)
+    }
 }]
 
 export default new Router({
+    // mode: 'history', // 没有#号的路由，默认 hash
     history: true, // 使浏览器历史功能可用
     saveScrollPosition: true, // 后退记住滚动条位置
     routes

@@ -34,6 +34,12 @@ const parseUrl = (url) => {
   }
 }
 
+/**
+ * 合并对象
+ */
+const mergeObj = (target, ...sources) => Object.assign(target, ...sources);
+
 export {
-  parseUrl
+  parseUrl,
+  mergeObj
 }

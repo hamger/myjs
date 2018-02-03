@@ -6,7 +6,7 @@
 			<a :class="{active: loginway == 'register'}" @click="changeLogin('register')">注册</a>
 		</div>
 		<div class="login-input" v-if="loginway === 'login' ">
-			<form class="form_login" accept-charset="UTF-8" method="post">
+			<form class="form_login" accept-charset="UTF-8">
 				<div class="input-group">
 				  <span id="basic-addon1"><i class="fa fa-user"></i></span>
 				  <input type="text" class="form-control" placeholder="账号" aria-describedby="basic-addon1" v-model="login.account">
@@ -15,7 +15,7 @@
 				  <span id="basic-addon2"><i class="fa fa-unlock-alt"></i></span>
 				  <input type="password" class="form-control" placeholder="密码" aria-describedby="basic-addon2" v-model="login.password">
 				</div>
-				<button class="btn btn-info" type="button" @click='doLogin()'><span>登录</span></button>
+				<button class="btn btn-info" type="button" @click='doLogin'><span>登录</span></button>
 				<div class="login-control" style="color:#555555;font-size:12px;">
 					<span style="float:left" class="checkbox" :class="{checked: checked === true}"
 						@click="checked = !checked">
@@ -59,16 +59,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { parseUrl } from '../common/js/common.js'
-import { crypMD5,
-  crypHmac,
-  encrypt,
-  decrypt,
-  sign, 
-  verify, 
-  publicEncrypt, 
-  privateDecrypt 
-} from '../common/js/crypto.js'
+import { crypMD5, encrypt, publicEncrypt } from '../common/js/crypto.js'
 
 export default{
 	data () {
@@ -86,17 +77,11 @@ export default{
 		changeLogin (loginway) {
   		this.$store.dispatch('changeLogin', loginway)
 		},
-		getKey () {
-			this.$http.get('/api/key').then(response => {
-				console.log(response.data);
-			})
-		},	
   	// 注册
   	doRegist () {
   		let account = this.register.account,
   		nickname = this.register.nickname,
   		password = this.register.password
-
 	  	if( !account || !nickname || !password ) {         			
 	  		alert('请填写完整！')
 	  	} else {
@@ -108,7 +93,7 @@ export default{
 			   			nickname: encrypt(nickname, 'DwYCjqFx5YCx0h0S'),
 			   			password: crypMD5(password)
 			     	}).then(response => {
-			    		this.dealResponse(response.data,false)
+			    		this.dealResponse(response.data, false)
 			    	}).catch(error => {    
 			    		console.log(error)
 			    	})
@@ -122,19 +107,25 @@ export default{
 	  doLogin () {
 	  	let url  = `/api/user/login?account=${this.login.account}&password=${crypMD5(this.login.password)}`
 	  	this.$http.get(url).then(response => {
-	  		this.dealResponse(response.data,true)
+	  		if (response.status === 200 && response.statusText === "OK") {
+	  			this.dealResponse(response.data,true)
+	  		} else {
+	  			alert('登录失败');
+	  		}
 	  	}).catch(error => {    
 	  		console.log(error)  
 	  	})
 	  },
 	  // 处理响应
 	  dealResponse (response, islogin) {
-	    console.log(response)
-	    if (response.status) {
+	    if (response.flag) {
 	    	if (islogin) {
-					this.$store.state.userName = response.username
+					this.$store.state.userName = response.nickname
+					this.$store.state.account = response.account
+					this.$store.state.myid = response.id
+					// router.push(url) 跳转到指定路由
 	      	this.$router.push('/article/articleList')
-	    	}else {
+	    	} else {
 	    		this.$store.dispatch('changeLogin', 'login')
 	    	}
 	    } else {
