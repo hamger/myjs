@@ -1,21 +1,62 @@
 var sqlOperate = require('./sqlOperate')
 var articleDbUtil = {}
 
-//  返回文章列表
+//  获取文章列表
 articleDbUtil.getArticles = function(param) {
   return new Promise(function(resolve, reject) {
-    const startIdx = param.page * param.size; 
-    const sql = `select * from ${param.type} limit ${startIdx},${param.size}` 
-    sqlOperate(sql, '', resolve, reject)
+    let sql = ''
+    if (param.mine) {
+      // 按发布时间降序排序
+      sql = `select * from articles where author = ? order by publish_time desc`
+      sqlOperate(sql, [param.mine], resolve, reject)
+    } else {
+      const startIdx = param.page * param.size;
+      sql = `select * from ${param.type} limit ${startIdx},${param.size}` 
+      sqlOperate(sql, '', resolve, reject)
+    }
   })
 }
 
-//  返回专题列表
+//  获取专题列表
 articleDbUtil.getTopics = function(param) {
   return new Promise(function(resolve, reject) {
     const startIdx = param.page * param.size; 
     const sql = `select * from topics limit ${startIdx},${param.size}` 
     sqlOperate(sql, '', resolve, reject)
+  })
+}
+
+// 添加文章
+articleDbUtil.addArticle = function(param) {
+  return new Promise(function(resolve, reject) {
+    const sql = `insert into articles(author, title, content, publish_time) values(?, ?, ?, ?)` 
+    const params = [param.author, param.title, param.content, new Date()]
+    sqlOperate(sql, params, resolve, reject)
+  })
+}
+
+// 删除文章
+articleDbUtil.delArticle = function(param) {
+  return new Promise(function (resolve, reject) {
+    const sql = `DELETE FROM articles WHERE id = ?`
+    sqlOperate(sql, [param.id], resolve, reject)
+  })
+}
+
+// 修改文章
+articleDbUtil.updArticle = function(param) {
+  return new Promise(function (resolve, reject) {
+    const sql = `UPDATE articles SET title = ?, content = ? WHERE id = ?`
+    const params = [param.title, param.content, param.id]
+    sqlOperate(sql, params, resolve, reject)
+  })
+}
+
+// 获取某一篇文章的信息
+articleDbUtil.getArticle = function(param) {
+  return new Promise(function (resolve, reject) {
+    const sql = `select * from articles where id = ?`
+    sqlOperate(sql, [param.id], resolve, reject)
   })
 }
 

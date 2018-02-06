@@ -4,8 +4,7 @@ var userDbUtil = {}
 // 注册时,查找用户
 userDbUtil.getRegister = function(user) {
   var promise = new Promise(function(resolve, reject) {
-    // var sql = `select * from users where account = ? or nickname = ?`
-    var sql = `select * from users where account = ?`
+    var sql = `select * from users where account = ? or nickname = ?`
     var params = [user.account]
     sqlOperate(sql, params, resolve, reject)
   })
