@@ -2,6 +2,7 @@
   <div class="wrap">
     <div class="article-nav">
       <ul class="btn-group">
+        <li :class="{active: show === 'articles'}" @click="show = 'articles'">最新</li>
         <li :class="{active: show === 'new'}" @click="show = 'new'">新上榜</li>
         <li :class="{active: show === 'weekhot'}" @click="show = 'weekhot'">周热门</li>
         <li :class="{active: show === 'monthhot'}" @click="show = 'monthhot'">月热门</li>
@@ -12,23 +13,34 @@
       </div>
     </div>
   	<ul>
-  		<li class='list' v-for="article in articles[show]">
-  			<p class="list-top">
+  		<li class='list' v-for="article in articles[show]"
+        v-if="show !== 'articles'">
+        <p class="list-top">
           <a href="javascript:;" class="author"><span>{{ article.author }}</span></a>
           <span class="time"> - {{ article.time}}</span>
         </p>
+        <h2 class="title"><a href="javascript:;">{{ article.title }}</a></h2>
+        <span class="small-text">阅读 {{article.read}} -</span>
+        <span class="small-text">评论 {{article.comment}} -</span>
+        <span class="small-text">喜欢 {{article.like}} -</span>
+        <span class="small-text">打赏 {{article.pay}}</span>
+        <div class="image" :style="{backgroundImage:article.src}"></div>
+      </li>
+      <li class='list' v-for="article in articles[show]"
+        v-if="show === 'articles'">
+  			<p class="list-top">
+          <a href="javascript:;" class="author"><span>{{ article.author }}</span></a>
+          <span class="time"> - {{article.time}}</span>
+        </p>
   			<h2 class="title"><a href="javascript:;">{{ article.title }}</a></h2>
-  			<span class="small-text">阅读 {{article.read}} -</span>
-  			<span class="small-text">评论 {{article.comment}} -</span>
-  			<span class="small-text">喜欢 {{article.like}} -</span>
-  			<span class="small-text">打赏 {{article.pay}}</span>
-  			<div class="image"
-  				:style="{backgroundImage:article.src, backgroundSize:'100%', backgroundRepeat:'no-repat'}">
-  			</div>
+  			<span class="small-text">阅读 {{article.read || 0}} -</span>
+  			<span class="small-text">评论 {{article.comment || 0}} -</span>
+  			<span class="small-text">喜欢 {{article.like || 0}}</span>
+  			<div class="image" :style="{backgroundImage:article.cover || 'url(../../static/vue-demo-new.jpg)'}"></div>
   		</li>
   	</ul>
-    <div class='more' @click="getData(show)">
-      <span>{{ all[show] ? '我是有底线的' : '点击查看更多...'}}</span>
+    <div class='more' @click="!$store.state.all[show] && getData(show)">
+      <span>{{ $store.state.all[show] ? '我是有底线的' : '点击查看更多...'}}</span>
     </div>
   </div>
 </template>
@@ -39,12 +51,8 @@ export default {
   data () {
     return {
       show: 'new',
-      all: {
-        new: false,
-        weekhot: false,
-        monthhot: false
-      },
       page: {
+        articles: 0,
         new: 0,
         weekhot: 0,
         monthhot: 0
@@ -66,6 +74,7 @@ export default {
     }
   },
   created () {
+    this.displayArticle({type: 'articles'})
     this.displayArticle({type: 'new'})
     this.displayArticle({type: 'weekhot'})
     this.displayArticle({type: 'monthhot'})
@@ -147,6 +156,8 @@ export default {
     position: absolute;
     right: 0;
     bottom : 11px;
+    backgroundSize: 100%;
+    backgroundRepeat: no-repat;
   }
 }
 

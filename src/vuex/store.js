@@ -8,11 +8,19 @@ Vue.use(Vuex)
 
 const state = {
   articles: {
+    articles: [],
     new: [],
     weekhot: [],
     monthhot: []
   },
+  all: {
+    articles: false,
+    new: false,
+    weekhot: false,
+    monthhot: false
+  },
   topics: [],
+  myArticle: [],
   texts: [
     {
         title: '一月四日日记',
@@ -160,7 +168,7 @@ const state = {
     }
   ],
   loginway: 'login',
-  userName: '游客',
+  nickname: '游客',
   account: '',
   myid: 0
 }
