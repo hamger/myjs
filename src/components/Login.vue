@@ -58,7 +58,7 @@
 	</div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import { crypMD5, encrypt, publicEncrypt } from '../common/js/crypto.js'
 
 export default{
@@ -73,6 +73,9 @@ export default{
 		loginway: "getLoginWay"
 	}),
 	methods: {
+		...mapMutations([
+      'CHANGE_USER' // 将 `this.CHANGE_USER(payload)` 映射为 `this.$store.commit('CHANGE_USER', payload)`
+    ]),
 		// 切换注册或者登陆状态
 		changeLogin (loginway) {
   		this.$store.dispatch('changeLogin', loginway)
@@ -120,9 +123,11 @@ export default{
 	  dealResponse (response, islogin) {
 	    if (response.flag) {
 	    	if (islogin) {
-					this.$store.state.userName = response.nickname
-					this.$store.state.account = response.account
-					this.$store.state.myid = response.id
+	    		this.CHANGE_USER({
+	    			nickname: response.nickname,
+	    			account: response.account,
+	    			myid: response.id
+	    		})
 					// router.push(url) 跳转到指定路由
 	      	this.$router.push('/article/articleList')
 	    	} else {

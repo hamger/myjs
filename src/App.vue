@@ -15,7 +15,7 @@
         active: tabIndex === 3
       }">
         <div class="drop-menu">
-          <a href="javascript:;"><i class="fa fa-user"></i> <span>{{ $store.state.userName }}</span></a>
+          <a href="javascript:;"><i class="fa fa-user"></i> <span>{{ $store.state.nickname }}</span></a>
           <ul class="drop-list" v-if="Number($store.state.myid) > 0">
             <li><router-link to="/myhome"><i class="fa fa-user-circle"></i> <span>我的主页</span></router-link></li>
             <li><router-link to="/write"><i class="fa fa-pencil"></i> <span>写文章</span></router-link></li>
@@ -37,7 +37,7 @@
 </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -49,16 +49,29 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'CHANGE_USER' // 将 `this.CHANGE_USER(payload)` 映射为 `this.$store.commit('CHANGE_USER', payload)`
+    ]),
     changeLogin (loginway) {
       this.$store.dispatch('changeLogin', loginway)
     },
     signOut () {
-      this.$store.state.userName = '游客'
-      this.$store.state.account = ''
-      this.$store.state.myid = 0
+      this.CHANGE_USER({
+        nickname: '游客',
+        account: '',
+        myid: 0
+      })
     }
   },
   created () {
+    // 判断登录状态
+    if (Number(localStorage.myid) > 0) {
+      this.CHANGE_USER({
+        nickname: localStorage.nickname,
+        account: localStorage.account,
+        myid: localStorage.myid
+      })
+    };
   }
 }
 </script>
@@ -115,6 +128,7 @@ nav.navbar {
     li {
       min-width: 108px;
       text-align: right;
+      border-top: 1px solid #fff;
     }
     li:hover {
       .active();

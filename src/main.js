@@ -9,8 +9,10 @@ import axios from 'axios'
 import 'font-awesome-webpack'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
+import util from './common/js/util.js'
 
 Vue.prototype.$http = axios
+Vue.use(util)
 
 Vue.config.productionTip = false
 Vue.config.devtools = true

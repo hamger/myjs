@@ -85,7 +85,40 @@ app.get('/topics', function(req, res) {
 // 添加文章
 app.post('/article/add', function(req, res) {
   let article = req.body
-  console.log(article)
+  articleDbUtil.addArticle(article).then(response => {
+    outPut(res, JSON.stringify(util.mergeObj(success, {message: '提交成功！'})))
+  }).catch(e => {
+    outPut(res, JSON.stringify(e))
+  })
+})
+
+// 删除文章
+app.post('/article/del', function(req, res) {
+  let article = req.body
+  articleDbUtil.delArticle(article).then(response => {
+    outPut(res, JSON.stringify(util.mergeObj(success, {message: '删除成功！'})))
+  }).catch(e => {
+    outPut(res, JSON.stringify(e))
+  })
+})
+
+// 修改文章
+app.post('/article/upd', function(req, res) {
+  let article = req.body
+  articleDbUtil.updArticle(article).then(response => {
+    outPut(res, JSON.stringify(util.mergeObj(success, {message: '修改成功！'})))
+  }).catch(e => {
+    outPut(res, JSON.stringify(e))
+  })
+})
+
+// 获取某一篇文章的信息
+app.get('/article', function(req, res) {
+  articleDbUtil.getArticle(req.query).then(response => {
+    outPut(res, JSON.stringify(util.mergeObj(success, response[0])))
+  }).catch(e => {
+    outPut(res, JSON.stringify(e))
+  })
 })
 
 // 监听端口

@@ -9,10 +9,16 @@ Vue.use(Vuex)
 const state = {
   articles: {
     new: [],
-    weekhot: [],
-    monthhot: []
+    hot: [],
+    recommend: []
+  },
+  all: {
+    new: false,
+    hot: false,
+    recommend: false
   },
   topics: [],
+  myArticle: [],
   texts: [
     {
         title: '一月四日日记',
@@ -160,7 +166,7 @@ const state = {
     }
   ],
   loginway: 'login',
-  userName: '游客',
+  nickname: '游客',
   account: '',
   myid: 0
 }

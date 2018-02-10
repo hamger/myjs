@@ -1,23 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Article from '@/components/Article'
-// import ArticleList from '@/components/ArticleList'
-// import Topic from '@/components/Topic'
-// import TopicList from '@/components/TopicList'
-// import Bonus from '@/components/Bonus'
-// import Login from '@/components/Login'
-// import Download from '@/components/Download'
 
 Vue.use(Router)
 
 const routes = [{
     path: "*",
-    redirect: '/article/articleList'
+    redirect: '/home/articleList'
 }, {
-    path: '/article',
-    name: 'article',
+    path: '/home',
+    name: 'home',
     component: function(resolve) {
-        require(['./components/article'], resolve)
+        require(['./components/Home'], resolve)
     },
     children: [{
         path: 'articleList',
@@ -43,14 +36,7 @@ const routes = [{
     name: 'topic',
     component: function(resolve) {
         require(['./components/Topic'], resolve)
-    },
-    children: [{
-        path: 'topicList',
-        name: 'topicList',
-        component: function(resolve) {
-            require(['./components/TopicList'], resolve)
-        }
-    }]
+    }
 }, {
     path: '/login',
     name: 'login',

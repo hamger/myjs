@@ -2,9 +2,9 @@
   <div class="wrap">
     <div class="article-nav">
       <ul class="btn-group">
-        <li :class="{active: show === 'new'}" @click="show = 'new'">新上榜</li>
-        <li :class="{active: show === 'weekhot'}" @click="show = 'weekhot'">周热门</li>
-        <li :class="{active: show === 'monthhot'}" @click="show = 'monthhot'">月热门</li>
+        <li :class="{active: show === 'new'}" @click="show = 'new'">最新</li>
+        <li :class="{active: show === 'hot'}" @click="show = 'hot'">热门</li>
+        <li :class="{active: show === 'recommend'}" @click="show = 'recommend'">推荐</li>
       </ul>
       <div class="search clearfloat">
           <input type="search" placeholder="搜索">
@@ -12,23 +12,20 @@
       </div>
     </div>
   	<ul>
-  		<li class='list' v-for="article in articles[show]">
+      <li class='list' v-for="article in articles[show]">
   			<p class="list-top">
           <a href="javascript:;" class="author"><span>{{ article.author }}</span></a>
-          <span class="time"> - {{ article.time}}</span>
+          <span class="time"> - {{article.time}}</span>
         </p>
   			<h2 class="title"><a href="javascript:;">{{ article.title }}</a></h2>
-  			<span class="small-text">阅读 {{article.read}} -</span>
-  			<span class="small-text">评论 {{article.comment}} -</span>
-  			<span class="small-text">喜欢 {{article.like}} -</span>
-  			<span class="small-text">打赏 {{article.pay}}</span>
-  			<div class="image"
-  				:style="{backgroundImage:article.src, backgroundSize:'100%', backgroundRepeat:'no-repat'}">
-  			</div>
+  			<span class="small-text">阅读 {{article.read_num}} -</span>
+  			<span class="small-text">评论 {{article.comment_num}} -</span>
+  			<span class="small-text">喜欢 {{article.like_num}}</span>
+        <img class="image" :src="article.cover || '../../static/article_3.jpg'">
   		</li>
   	</ul>
-    <div class='more' @click="getData(show)">
-      <span>{{ all[show] ? '我是有底线的' : '点击查看更多...'}}</span>
+    <div class='more' @click="!$store.state.all[show] && getData(show)">
+      <span>{{ $store.state.all[show] ? '我是有底线的' : '点击查看更多...'}}</span>
     </div>
   </div>
 </template>
@@ -39,15 +36,10 @@ export default {
   data () {
     return {
       show: 'new',
-      all: {
-        new: false,
-        weekhot: false,
-        monthhot: false
-      },
       page: {
         new: 0,
-        weekhot: 0,
-        monthhot: 0
+        hot: 0,
+        recommend: 0
       }
     }
   },
@@ -67,8 +59,8 @@ export default {
   },
   created () {
     this.displayArticle({type: 'new'})
-    this.displayArticle({type: 'weekhot'})
-    this.displayArticle({type: 'monthhot'})
+    this.displayArticle({type: 'hot'})
+    this.displayArticle({type: 'recommend'})
   }
 }
 </script>
