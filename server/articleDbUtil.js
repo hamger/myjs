@@ -35,9 +35,14 @@ articleDbUtil.getTopics = function(param) {
 // 添加文章
 articleDbUtil.addArticle = function(param) {
   return new Promise(function(resolve, reject) {
+<<<<<<< HEAD
     const sql = `insert into articles(author, title, content, publish_time, read_num, like_num, comment_num)
     values(?, ?, ?, ?, ?, ?, ?)` 
     const params = [param.author, param.title, param.content, new Date(), 0, 0, 0]
+=======
+    const sql = `insert into articles(author, title, content, publish_time) values(?, ?, ?, ?)` 
+    const params = [param.author, param.title, param.content, new Date()]
+>>>>>>> origin/master
     sqlOperate(sql, params, resolve, reject)
   })
 }
