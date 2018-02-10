@@ -18,6 +18,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default{
+  name: 'home',
   data () {
     return {
       index: 0

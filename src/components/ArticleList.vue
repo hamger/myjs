@@ -15,25 +15,12 @@
       <li class='list' v-for="article in articles[show]">
   			<p class="list-top">
           <a href="javascript:;" class="author"><span>{{ article.author }}</span></a>
-          <span class="time"> - {{article.time}}</span>
+          <span class="time"> - {{$util.dateFormat(article.publish_time)}}</span>
         </p>
-        <h2 class="title"><a href="javascript:;">{{ article.title }}</a></h2>
-        <span class="small-text">阅读 {{article.read}} -</span>
-        <span class="small-text">评论 {{article.comment}} -</span>
-        <span class="small-text">喜欢 {{article.like}} -</span>
-        <span class="small-text">打赏 {{article.pay}}</span>
-        <div class="image" :style="{backgroundImage:article.src}"></div>
-      </li>
-      <li class='list' v-for="article in articles[show]"
-        v-if="show === 'articles'">
-  			<p class="list-top">
-          <a href="javascript:;" class="author"><span>{{ article.author }}</span></a>
-          <span class="time"> - {{article.time}}</span>
-        </p>
-  			<h2 class="title"><a href="javascript:;">{{ article.title }}</a></h2>
-  			<span class="small-text">阅读 {{article.read_num}} -</span>
-  			<span class="small-text">评论 {{article.comment_num}} -</span>
-  			<span class="small-text">喜欢 {{article.like_num}}</span>
+  			<h2 class="title"><router-link :to="`/article?id=${article.id}`">{{ article.title }}</router-link></h2>
+  			<span class="small-text"><i class="fa fa-eye"></i> {{article.read_num}}</span>
+  			<span class="small-text"><i class="fa fa-comment"></i> {{article.comment_num}}</span>
+  			<span class="small-text"><i class="fa fa-heart"></i> {{article.like_num}}</span>
         <img class="image" :src="article.cover || '../../static/article_3.jpg'">
   		</li>
   	</ul>
@@ -50,7 +37,6 @@ export default {
     return {
       show: 'new',
       page: {
-        articles: 0,
         new: 0,
         hot: 0,
         recommend: 0
@@ -72,7 +58,6 @@ export default {
     }
   },
   created () {
-    this.displayArticle({type: 'articles'})
     this.displayArticle({type: 'new'})
     this.displayArticle({type: 'hot'})
     this.displayArticle({type: 'recommend'})
@@ -146,6 +131,11 @@ export default {
       font-weight: bold;
       font-size: 18px;
     }
+  }
+  .small-text {
+    font-size: 13px;
+    color: #666;
+    padding-right: 10px;
   }
   .image {
     width: 72px;
