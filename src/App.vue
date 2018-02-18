@@ -69,7 +69,8 @@ export default {
       this.CHANGE_USER({
         nickname: localStorage.nickname,
         account: localStorage.account,
-        myid: localStorage.myid
+        myid: localStorage.myid,
+        headimg: localStorage.headimg
       })
     };
   }

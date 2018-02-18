@@ -27,7 +27,7 @@ import { crypMD5,
   publicEncrypt, 
   privateDecrypt 
 } from '../common/js/crypto.js'
-import cryptoJS from 'crypto-js'
+// import cryptoJS from 'crypto-js'
 
 const secretKey = 'DwYCjqFx5YCx0h0S'
 

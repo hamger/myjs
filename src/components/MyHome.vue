@@ -1,15 +1,18 @@
 <template>
   <div class="wrap">
     <div class="myinfo">
+      <img class="headimg" :src="headimg">
       账号：<span>{{$store.state.account}}</span>
       昵称：<span>{{$store.state.nickname}}</span>
+      <button type="button" class="btn btn-default btn-sm"
+      @click="editInfo"><i class="fa fa-pencil-square-o"></i>编辑</button>
     </div>
     <div>
       <h5>我的文章</h5>
       <table class="table table-hover">
         <tr v-for="item in data">
           <td>{{item.title}}</td>
-          <td>{{item.publish_time}}</td>
+          <td>{{$util.dateFormat(item.publish_time)}}</td>
           <td>
             <button type="button" class="btn btn-primary btn-sm" 
             @click="modArticle(item.id)"><i class="fa fa-pencil-square-o"></i>修改</button>
@@ -29,6 +32,8 @@ export default {
   name: 'myhome',
   data () {
     return {
+      img: null,
+      headimg: require('../../' + this.$store.state.headimg),
       data: []
     }
   },
@@ -40,7 +45,7 @@ export default {
         size: 5
       }).then(response => {
         this.data = this.data.concat(response.data)
-        console.log(this.data);
+        // console.log(this.data);
       }).catch(function(error) {
         console.log(error)
       })
@@ -58,6 +63,9 @@ export default {
     },
     modArticle (id) {
       this.$router.push(`/write?id=${id}`)
+    },
+    editInfo () {
+      this.$router.push(`/edit?id=${this.$store.state.myid}`)
     }
   },
   created () {
@@ -70,6 +78,13 @@ export default {
     padding: 15px;
     .myinfo {
       margin-bottom: 20px;
+      line-height: 40px;
+      .headimg {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
       span {
         padding-right: 20px;
       }

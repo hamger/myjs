@@ -12,7 +12,7 @@
       </div>
     </div>
   	<ul>
-      <li class='list' v-for="article in articles[show]">
+      <li class="list" v-for="article in articles[show]">
   			<p class="list-top">
           <a href="javascript:;" class="author"><span>{{ article.author }}</span></a>
           <span class="time"> - {{$util.dateFormat(article.publish_time)}}</span>
@@ -120,10 +120,9 @@ export default {
 .list {
   position: relative;
 	margin: 7px 5px;
-	 	padding-bottom: 7px;
-	border-bottom: 1px dashed #d9d9d9;
-	.list-top{
-	}
+	padding-bottom: 7px;
+  border-bottom: 1px dashed #d9d9d9;
+  
   .title {
     line-height: 26px;
     margin-top: 10px 0;
@@ -143,9 +142,7 @@ export default {
     border-radius: 5px;
     position: absolute;
     right: 0;
-    bottom : 11px;
-    backgroundSize: 100%;
-    backgroundRepeat: no-repat;
+    bottom: 11px;
   }
 }
 

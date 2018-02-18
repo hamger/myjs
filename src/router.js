@@ -67,6 +67,12 @@ const routes = [{
     component: function(resolve) {
         require(['./components/Article'], resolve)
     }
+}, {
+    path: '/edit',
+    name: 'edit',
+    component: function(resolve) {
+        require(['./components/Edit'], resolve)
+    }
 }]
 
 export default new Router({

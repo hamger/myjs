@@ -61,12 +61,12 @@
 import { mapGetters, mapMutations } from 'vuex'
 import { crypMD5, encrypt, publicEncrypt } from '../common/js/crypto.js'
 
-export default{
+export default {
 	data () {
 		return {
 			checked: 'true',
 			login: {},
-  		register: {}
+  			register: {}
 		}
 	},
 	computed: mapGetters({
@@ -76,10 +76,10 @@ export default{
 		...mapMutations([
       'CHANGE_USER' // 将 `this.CHANGE_USER(payload)` 映射为 `this.$store.commit('CHANGE_USER', payload)`
     ]),
-		// 切换注册或者登陆状态
-		changeLogin (loginway) {
-  		this.$store.dispatch('changeLogin', loginway)
-		},
+	// 切换注册或者登陆状态
+	changeLogin (loginway) {
+		this.$store.dispatch('changeLogin', loginway)
+	},
   	// 注册
   	doRegist () {
   		let account = this.register.account,
@@ -92,7 +92,7 @@ export default{
 	  			if (response.status === 200 && response.statusText === "OK") {
   					let public_key = response.data
 			  		this.$http.post('/api/user/register/', {
-							account: publicEncrypt(account, public_key),
+						account: publicEncrypt(account, public_key),
 			   			nickname: encrypt(nickname, 'DwYCjqFx5YCx0h0S'),
 			   			password: crypMD5(password)
 			     	}).then(response => {
@@ -106,8 +106,8 @@ export default{
 	  		})
 	  	}
   	},
-	  // 登陆 
-	  doLogin () {
+  	// 登陆 
+	doLogin () {
 	  	let url  = `/api/user/login?account=${this.login.account}&password=${crypMD5(this.login.password)}`
 	  	this.$http.get(url).then(response => {
 	  		if (response.status === 200 && response.statusText === "OK") {
@@ -118,24 +118,25 @@ export default{
 	  	}).catch(error => {    
 	  		console.log(error)  
 	  	})
-	  },
-	  // 处理响应
-	  dealResponse (response, islogin) {
+  	},
+  	// 处理响应
+  	dealResponse (response, islogin) {
 	    if (response.flag) {
 	    	if (islogin) {
 	    		this.CHANGE_USER({
 	    			nickname: response.nickname,
 	    			account: response.account,
-	    			myid: response.id
+	    			myid: response.id,
+	    			headimg: response.headimg
 	    		})
-					// router.push(url) 跳转到指定路由
-	      	this.$router.push('/article/articleList')
+				// router.push(url) 跳转到指定路由
+	      		this.$router.push('/article/articleList')
 	    	} else {
 	    		this.$store.dispatch('changeLogin', 'login')
 	    	}
 	    } else {
 	    	if (islogin) alert('登录失败！')
-	      else alert('注册失败！')
+	      	else alert('注册失败！')
 	    }
 	  }
 	},
