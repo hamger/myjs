@@ -11,7 +11,7 @@ const state = {
     nickname: '游客',
     account: '',
     myid: 0,
-    headimg: require('../../uploads/1-headimg.jpg'),
+    headimg: '',
     articles: {
         new: [],
         hot: [],

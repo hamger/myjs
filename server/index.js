@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true })) //此项必须在 bodyParser.
 
 // 获取公钥
 app.get('/key', (req, res) => {
+    // 引入公钥
     let public_key = fs.readFileSync('./server/rsa_public_key.pem').toString()
-    // let public_key = fs.readFileSync(path.resolve("./server/rsa_public_key.pem")).toString()
     outPut(res, public_key);
 })
 
@@ -27,10 +27,10 @@ const error = { flag: false }
 
 // 用户注册
 app.post('/user/register', function(req, res) {
-    // 得到请求的数据
-    let user = req.body
+    // 引入私钥
     let private_key = fs.readFileSync('./server/rsa_private_key.pem').toString()
-    // let private_key = fs.readFileSync(path.resolve("./server/rsa_private_key.pem")).toString()
+
+    let user = req.body
     user.account = crypto.privateDecrypt(user.account, private_key).toString()
     user.nickname = crypto.decrypt(user.nickname, 'DwYCjqFx5YCx0h0S')
     userDbUtil.getRegister(user).then(response => {
@@ -141,6 +141,7 @@ app.post('/uploadimg', multer, function(req, res, next) {
     userDbUtil.setUserInfo(param).then(response => {
         outPut(res, JSON.stringify(util.mergeObj(success, {message: '修改成功！'})))
     }).catch(e => {
+        console.log(e)
         outPut(res, JSON.stringify(e))
     })
 })

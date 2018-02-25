@@ -24,11 +24,6 @@ export default{
       index: 0
     }
   },
-  computed: {
-    ...mapGetters({
-      show: 'getShow'
-    })
-  },
   methods: {
     ...mapActions({
       displayArticle: 'displayArticle'

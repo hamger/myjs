@@ -59,8 +59,10 @@ export default {
       this.CHANGE_USER({
         nickname: '游客',
         account: '',
-        myid: 0
+        myid: 0,
+        headimg: ''
       })
+      this.$router.push(`/`)
     }
   },
   created () {

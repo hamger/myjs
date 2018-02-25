@@ -7,7 +7,7 @@ articleDbUtil.getArticles = function(param) {
     let sql = ''
     if (param.mine) {
       // 按发布时间降序排序
-      sql = `select * from articles where author = ? order by publish_time desc`
+      sql = `select * from articles where author_id = ? order by publish_time desc`
       sqlOperate(sql, [param.mine], resolve, reject)
     } else {
       const startIdx = param.page * param.size;

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-	
+import { mapMutations } from 'vuex'
 export default {
 	name: 'edit',
 	data () {
@@ -26,6 +26,9 @@ export default {
 		}
 	},
 	methods: {
+		...mapMutations([
+	      'CHANGE_USER'
+	    ]),
 		update () {
 			if (this.$refs.upload.files[0] || this.nickname !== this.$store.state.nickname) {
 				let formData = new FormData();
@@ -37,11 +40,13 @@ export default {
 					headers: {'Content-Type': 'multipart/form-data'}
 				}
 				this.$http.post(`/api/uploadimg?id=${this.$store.state.myid}`, formData, config).then(response => {
-					if (response.flag) {
-						if (confirm('修改成功，是否返回')) {
-							window.location.back();
-						}
-					}
+					this.CHANGE_USER({
+		    			nickname: this.nickname,
+		    			account: this.$store.state.account,
+		    			myid: this.$store.state.myid,
+		    			headimg: this.$store.state.headimg
+		    		})
+					if (confirm('修改成功，是否返回')) this.$router.go(-1);
 				}).catch(function(error) {
 					console.log(error)
 				})
@@ -52,8 +57,6 @@ export default {
 		cancle () {
 			window.location.back();
 		}
-	},
-	created () {
 	}
 }
 
@@ -62,7 +65,7 @@ export default {
 <style lang="less" scoped>
 .wrap {
 	max-width: 500px;
-	margin: 15px auto;
-	
+	margin: 0 auto;
+	padding: 15px;
 }
 </style>

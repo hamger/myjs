@@ -24,10 +24,10 @@ export const CHANGE_USER = (state, payload) => {
   state.nickname = payload.nickname
   state.account = payload.account
   state.myid = payload.myid
-  state.headimg = payload.headimg || 'uploads/header.jpg'
+  state.headimg = payload.headimg || 'uploads/default.jpg'
   localStorage.nickname = payload.nickname
   localStorage.account = payload.account
   localStorage.myid = payload.myid
-  localStorage.headimg = payload.headimg || 'uploads/header.jpg'
+  localStorage.headimg = payload.headimg || 'uploads/default.jpg'
 }
 
