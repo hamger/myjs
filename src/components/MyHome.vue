@@ -3,7 +3,8 @@
     <div class="myinfo">
       <!-- <img class="headimg" :src="require('../../uploads/default.jpg')"> -->
       <img class="headimg" :src="require('../../uploads/1-headimg.jpg')">
-      <!-- <img class="headimg" :src="require(imgurl2)"> -->
+      <!-- <img class="headimg" :src="require(`../../${$store.state.headimg}`)"> -->
+      <!-- <img class="headimg" :src="imgurl"> -->
       <!-- <img class="headimg" :src="require(imgurl3)"> -->
       账号：<span>{{$store.state.account}}</span>
       昵称：<span>{{$store.state.nickname}}</span>
@@ -28,29 +29,22 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import { getReq, postReq } from '../fetch/startReq.js'
 
 export default {
   name: 'myhome',
   data () {
     return {
-      imgurl2: '../../uploads/default.jpg',
-      imgurl3: '../../' + this.$store.state.headimg,
+      imgurl: '../../uploads/default.jpg',
       data: []
     }
-  },
-  computed: {
-    ...mapGetters({
-      imgurl: "getHeadImg"
-    })
   },
   methods: {
     getData () {
       getReq('articles', {
         mine: this.$store.state.myid,
         page: 0,
-        size: 5
+        size: 15
       }).then(response => {
         response.data.forEach(val => {
           val.nodel = true;
@@ -80,7 +74,6 @@ export default {
     }
   },
   created () {
-    console.log(this.imgurl3);
     this.getData();
   }
 }
