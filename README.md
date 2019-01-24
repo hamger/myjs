@@ -6,7 +6,7 @@
 ``` bash
 npm install
 ```
-在MySQL中新建数据库，将`test.sql`导入该数据库，将`/server/dbConnection.js`中的数据库连接配置项修改成你的配置，开启`mysql`，命令行中输入(或者其他开启方式)
+在MySQL中新建数据库，将`test.sql`导入该数据库，将`/server/dbConnection.js`中的数据库连接配置项修改成你的配置，开启`mysql`，命令行中输入
 ```
 mysql.server start
 ```

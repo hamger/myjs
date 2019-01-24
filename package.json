@@ -5,6 +5,7 @@
   "author": "hamger <2313303800@qq.com>",
   "private": true,
   "scripts": {
+    "server": "node server", 
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
